@@ -85,10 +85,18 @@ struct CalendarView: View {
             // 주차별 달력 구성
             HStack(spacing: 8) {
                 ForEach(weekDates, id: \.self) { date in
-                    VStack {
-                        Text(dayOfWeek(for: date)) // 월~일 표시
-                            .font(.caption)
-                            .foregroundColor(.gray)
+                    VStack(spacing: 8) {
+                        ZStack {
+                            if isToday(date) {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(Color.black)
+                                    .frame(width: 40, height: 20)
+                            }
+
+                            Text(dayOfWeek(for: date)) // 월~일 표시
+                                .font(.caption)
+                                .foregroundColor(isToday(date) ? .white : colorForWeekday(date))
+                        }
 
                         ZStack {
                             Circle()
@@ -109,7 +117,7 @@ struct CalendarView: View {
 
                         Text("\(day(for: date))") // 날짜 숫자
                             .font(.headline)
-                            .foregroundColor(isToday(date) ? .red : .primary)
+                            .foregroundColor(colorForWeekday(date)) // 숫자는 요일 색상
                     }
                 }
             }
@@ -179,5 +187,19 @@ struct CalendarView: View {
     private func day(for date: Date) -> Int {
         let calendar = Calendar.current
         return calendar.component(.day, from: date)
+    }
+
+    // 요일별 색상 설정
+    private func colorForWeekday(_ date: Date) -> Color {
+        let calendar = Calendar.current
+        let weekday = calendar.component(.weekday, from: date)
+
+        if weekday == 7 { // 토요일
+            return .blue
+        } else if weekday == 1 { // 일요일
+            return .red
+        } else {
+            return .primary
+        }
     }
 }
