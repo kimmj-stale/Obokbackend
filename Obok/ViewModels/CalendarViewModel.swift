@@ -9,20 +9,167 @@ import SwiftUI
 
 struct CalendarView: View {
     @Binding var selectedDate: Date // 선택된 날짜 바인딩
+    @State private var weekDates: [Date] = [] // 현재 주차 날짜들
+    @State private var studyData: [Date: [Color]] = [:] // 날짜별 과목 색상
 
     var body: some View {
-        VStack {
-            Text("달력 구성")
-                .font(.headline)
-                .padding()
-            Text("선택된 날짜: \(selectedDate, formatter: dateFormatter)")
+        VStack(spacing: 16) {
+            // 상단 설정, 통계, 모아보기 버튼
+            HStack {
+                // 설정 버튼 (왼쪽 정렬)
+                Button(action: {
+                    print("설정 버튼 클릭")
+                }) {
+                    Image("setting") // 설정 이미지
+                        .renderingMode(.original) // 본래 이미지 색상 유지
+                        .frame(width: 24, height: 24) // 이미지 크기 지정
+                }
+                Spacer()
+
+                // 통계 버튼
+                Button(action: {
+                    print("통계 버튼 클릭")
+                }) {
+                    Image("statistics") // 통계 이미지
+                        .renderingMode(.original) // 본래 이미지 색상 유지
+                        .frame(width: 24, height: 24) // 이미지 크기 지정
+                }
+
+                // 모아보기 버튼
+                Button(action: {
+                    print("모아보기 버튼 클릭")
+                }) {
+                    Image("collect") // 모아보기 이미지
+                        .renderingMode(.original) // 본래 이미지 색상 유지
+                        .frame(width: 24, height: 24) // 이미지 크기 지정
+                }
+            }
+            .padding(.horizontal)
+
+            // 중앙 이전 주/다음 주 버튼과 월 표시
+            HStack {
+                Button(action: {
+                    changeWeek(by: -1)
+                }) {
+                    Image(systemName: "chevron.left")
+                        .font(.title2)
+                        .padding()
+                }
+
+                Spacer()
+
+                Text(currentMonthYear)
+                    .font(.title3)
+                    .bold()
+
+                Spacer()
+
+                Button(action: {
+                    changeWeek(by: 1)
+                }) {
+                    Image(systemName: "chevron.right")
+                        .font(.title2)
+                        .padding()
+                }
+            }
+            .padding(.horizontal)
+
+            // 주차별 달력 구성
+            HStack(spacing: 8) {
+                ForEach(weekDates, id: \.self) { date in
+                    VStack {
+                        Text(dayOfWeek(for: date)) // 월~일 표시
+                            .font(.caption)
+                            .foregroundColor(.gray)
+
+                        ZStack {
+                            Circle()
+                                .stroke(selectedDate == date ? Color.blue : Color.clear, lineWidth: 2)
+                                .frame(width: 40, height: 40)
+
+                            VStack(spacing: 2) {
+                                ForEach(studyData[date] ?? [], id: \.self) { color in
+                                    Circle()
+                                        .fill(color)
+                                        .frame(width: 10, height: 10)
+                                }
+                            }
+                        }
+                        .onTapGesture {
+                            selectedDate = date
+                        }
+
+                        Text("\(day(for: date))") // 날짜 숫자
+                            .font(.headline)
+                            .foregroundColor(isToday(date) ? .red : .primary)
+                    }
+                }
+            }
+            Spacer()
+        }
+        .onAppear {
+            loadWeekDates()
+            loadStudyData()
         }
     }
 
-    // 날짜 형식 지정
-    private var dateFormatter: DateFormatter {
+    // 오늘 날짜인지 확인
+    private func isToday(_ date: Date) -> Bool {
+        Calendar.current.isDateInToday(date)
+    }
+
+    // 현재 주차 날짜 로드 (월요일부터 시작)
+    private func loadWeekDates() {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: selectedDate)
+
+        // 월요일로 설정 (한 주의 시작은 월요일)
+        guard let monday = calendar.date(from: components) else { return }
+
+        // 월요일부터 7일간의 날짜 배열 생성
+        weekDates = (0..<7).compactMap {
+            calendar.date(byAdding: .day, value: $0, to: monday)
+        }
+    }
+
+    // 공부 데이터 로드 (더미 데이터)
+    private func loadStudyData() {
+        let calendar = Calendar.current
+        studyData = [
+            calendar.date(byAdding: .day, value: 0, to: selectedDate)!: [.red, .blue, .orange],
+            calendar.date(byAdding: .day, value: 1, to: selectedDate)!: [.green],
+            calendar.date(byAdding: .day, value: 2, to: selectedDate)!: [.purple, .pink],
+            calendar.date(byAdding: .day, value: 3, to: selectedDate)!: []
+        ]
+    }
+
+    // 주 변경
+    private func changeWeek(by offset: Int) {
+        let calendar = Calendar.current
+        if let newDate = calendar.date(byAdding: .weekOfYear, value: offset, to: selectedDate) {
+            selectedDate = newDate
+            loadWeekDates()
+        }
+    }
+
+    // 월/연도 문자열 포맷
+    private var currentMonthYear: String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        return formatter
+        formatter.dateFormat = "MMMM yyyy"
+        return formatter.string(from: selectedDate)
+    }
+
+    // 요일 문자열 (월~일)
+    private func dayOfWeek(for date: Date) -> String {
+        let weekdaySymbols = ["월", "화", "수", "목", "금", "토", "일"]
+        let calendar = Calendar.current
+        let weekdayIndex = calendar.component(.weekday, from: date) - 2 // 월요일 시작
+        return weekdaySymbols[(weekdayIndex + 7) % 7]
+    }
+
+    // 날짜 숫자
+    private func day(for date: Date) -> Int {
+        let calendar = Calendar.current
+        return calendar.component(.day, from: date)
     }
 }
