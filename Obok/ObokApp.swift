@@ -8,16 +8,12 @@
 import SwiftUI
 
 @main
-struct ObookApp: App {
-    @AppStorage("isLoggedIn") private var isLoggedIn = false
-    @StateObject private var userViewModel = UserViewModel() // 사용자 상태 관리
-    @StateObject private var diaryViewModel = DiaryViewModel() // 일기 관리 상태
+struct ObokApp: App {
+    @State private var selectedDate = Date() // 현재 날짜를 기본값으로 설정
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(userViewModel)
-                .environmentObject(diaryViewModel)
+            CalendarView(selectedDate: $selectedDate) // CalendarView로 바로 진입
         }
     }
 }
