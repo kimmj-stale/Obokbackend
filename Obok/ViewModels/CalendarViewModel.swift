@@ -20,31 +20,37 @@ struct CalendarView: View {
                 Button(action: {
                     print("설정 버튼 클릭")
                 }) {
-                    Image("setting") // 설정 이미지
-                        .renderingMode(.original) // 본래 이미지 색상 유지
-                        .frame(width: 24, height: 24) // 이미지 크기 지정
+                    Image("setting")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
                 }
+
                 Spacer()
 
-                // 통계 버튼
-                Button(action: {
-                    print("통계 버튼 클릭")
-                }) {
-                    Image("statistics") // 통계 이미지
-                        .renderingMode(.original) // 본래 이미지 색상 유지
-                        .frame(width: 24, height: 24) // 이미지 크기 지정
-                }
+                // 통계 및 모아보기 버튼 (오른쪽 정렬)
+                HStack(spacing: 16) {
+                    Button(action: {
+                        print("통계 버튼 클릭")
+                    }) {
+                        Image("statistics")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75, height: 24)
+                    }
 
-                // 모아보기 버튼
-                Button(action: {
-                    print("모아보기 버튼 클릭")
-                }) {
-                    Image("collect") // 모아보기 이미지
-                        .renderingMode(.original) // 본래 이미지 색상 유지
-                        .frame(width: 24, height: 24) // 이미지 크기 지정
+                    Button(action: {
+                        print("모아보기 버튼 클릭")
+                    }) {
+                        Image("collection")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 75, height: 24)
+                    }
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 26) // 좌우 여백 설정
+            .frame(height: 40) // HStack 높이 고정
 
             // 중앙 이전 주/다음 주 버튼과 월 표시
             HStack {
@@ -53,6 +59,7 @@ struct CalendarView: View {
                 }) {
                     Image(systemName: "chevron.left")
                         .font(.title2)
+                        .foregroundColor(.blue)
                         .padding()
                 }
 
@@ -69,6 +76,7 @@ struct CalendarView: View {
                 }) {
                     Image(systemName: "chevron.right")
                         .font(.title2)
+                        .foregroundColor(.blue)
                         .padding()
                 }
             }
