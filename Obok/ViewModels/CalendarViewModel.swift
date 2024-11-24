@@ -54,33 +54,32 @@ struct CalendarView: View {
 
             // 중앙 이전 주/다음 주 버튼과 월 표시
             HStack {
-                Button(action: {
-                    changeWeek(by: -1)
-                }) {
-                    Image(systemName: "chevron.left")
-                        .font(.title2)
-                        .foregroundColor(.blue)
-                        .padding()
-                }
-
-                Spacer()
-
                 Text(currentMonthYear)
                     .font(.title3)
                     .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading) // 좌측 정렬
 
-                Spacer()
+                HStack(spacing: 2) { // 화살표 버튼 우측 정렬
+                    Button(action: {
+                        changeWeek(by: -1)
+                    }) {
+                        Image(systemName: "chevron.left")
+                            .font(.title3)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
 
-                Button(action: {
-                    changeWeek(by: 1)
-                }) {
-                    Image(systemName: "chevron.right")
-                        .font(.title2)
-                        .foregroundColor(.blue)
-                        .padding()
+                    Button(action: {
+                        changeWeek(by: 1)
+                    }) {
+                        Image(systemName: "chevron.right")
+                            .font(.title3)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 26) // 좌우 여백 설정
 
             // 주차별 달력 구성
             HStack(spacing: 8) {
@@ -168,10 +167,11 @@ struct CalendarView: View {
         }
     }
 
-    // 월/연도 문자열 포맷
+    // 월/연도 문자열 포맷 (한국어 형식)
     private var currentMonthYear: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM yyyy"
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "LLLL" // 월만 표시
         return formatter.string(from: selectedDate)
     }
 
