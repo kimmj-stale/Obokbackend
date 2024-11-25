@@ -55,19 +55,17 @@ struct CalendarView: View {
 
             // 상단 공부 명언 표시
             VStack(spacing: 8) {
-                Text("오늘은 월요일..........") // 명언 예시
-                    .font(.headline)
-                    .padding(.horizontal, 20)
+                Text("오늘은 월요일..........\n월요일......................") // 명언 예시
+                    .font(.system(size: 16))
+                    .padding(.horizontal, 18)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
-
             
             // 중앙 이전 주/다음 주 버튼과 월 표시
             HStack {
                 Text(currentMonthYear)
-                    .font(.title3)
-                    .bold()
+                    .font(.system(size: 16, weight:.bold))
                     .frame(maxWidth: .infinity, alignment: .leading) // 좌측 정렬
 
                 HStack(spacing: 2) { // 화살표 버튼 우측 정렬
@@ -75,7 +73,7 @@ struct CalendarView: View {
                         changeWeek(by: -1)
                     }) {
                         Image(systemName: "chevron.left")
-                            .font(.title3)
+                            .font(.system(size: 16))
                             .foregroundColor(.black)
                             .padding()
                     }
@@ -84,7 +82,7 @@ struct CalendarView: View {
                         changeWeek(by: 1)
                     }) {
                         Image(systemName: "chevron.right")
-                            .font(.title3)
+                            .font(.system(size: 16))
                             .foregroundColor(.black)
                             .padding()
                     }
@@ -100,18 +98,18 @@ struct CalendarView: View {
                             if isToday(date) {
                                 RoundedRectangle(cornerRadius: 6)
                                     .fill(Color.black)
-                                    .frame(width: 40, height: 18)
+                                    .frame(width: 30, height: 18)
                             }
 
                             Text(dayOfWeek(for: date)) // 월~일 표시
-                                .font(.caption)
+                                .font(.system(size: 12, weight:.bold))
                                 .foregroundColor(isToday(date) ? .white : colorForWeekday(date))
                         }
 
                         ZStack {
                             Circle()
                                 .stroke(selectedDate == date ? Color.blue : Color.clear, lineWidth: 2)
-                                .frame(width: 40, height: 15)
+                                .frame(width: 45, height: 15)
 
                             VStack(spacing: 2) {
                                 ForEach(studyData[date] ?? [], id: \.self) { color in
