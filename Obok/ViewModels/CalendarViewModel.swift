@@ -14,6 +14,7 @@ struct CalendarView: View {
 
     var body: some View {
         VStack(spacing: 16) {
+            
             // 상단 설정, 통계, 모아보기 버튼
             HStack {
                 // 설정 버튼 (왼쪽 정렬)
@@ -52,6 +53,16 @@ struct CalendarView: View {
             .padding(.horizontal, 26) // 좌우 여백 설정
             .frame(height: 40) // HStack 높이 고정
 
+            // 상단 공부 명언 표시
+            VStack(spacing: 8) {
+                Text("오늘은 월요일..........") // 명언 예시
+                    .font(.headline)
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding()
+
+            
             // 중앙 이전 주/다음 주 버튼과 월 표시
             HStack {
                 Text(currentMonthYear)
@@ -89,7 +100,7 @@ struct CalendarView: View {
                             if isToday(date) {
                                 RoundedRectangle(cornerRadius: 6)
                                     .fill(Color.black)
-                                    .frame(width: 40, height: 20)
+                                    .frame(width: 40, height: 18)
                             }
 
                             Text(dayOfWeek(for: date)) // 월~일 표시
@@ -100,7 +111,7 @@ struct CalendarView: View {
                         ZStack {
                             Circle()
                                 .stroke(selectedDate == date ? Color.blue : Color.clear, lineWidth: 2)
-                                .frame(width: 40, height: 40)
+                                .frame(width: 40, height: 15)
 
                             VStack(spacing: 2) {
                                 ForEach(studyData[date] ?? [], id: \.self) { color in
