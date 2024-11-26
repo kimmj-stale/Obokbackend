@@ -41,6 +41,8 @@ struct MainView: View {
                     .background(Color.white)
                     .cornerRadius(16)
                     .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                    .padding(.vertical, -100)
+
                 }
 
                 // createbutton.png
@@ -83,7 +85,7 @@ struct MainView: View {
         todayDiaries = [
             Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
             Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
-            Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),            
+            Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
         ]
     }
 }

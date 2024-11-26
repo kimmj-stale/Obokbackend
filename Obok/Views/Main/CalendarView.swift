@@ -48,7 +48,6 @@ struct CalendarView: View {
                 }
             }
             .padding(.horizontal, 26)
-            .frame(height: 40)
 
             // 명언 영역
             VStack(spacing: 8) {
@@ -127,11 +126,14 @@ struct CalendarView: View {
                 }
             }
             Spacer()
+
         }
         .onAppear {
             loadWeekDates()
             loadStudyData()
         }
+        .padding(.vertical, -60)
+
     }
 
     // 오늘 날짜인지 확인
