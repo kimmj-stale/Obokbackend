@@ -48,6 +48,7 @@ struct CalendarView: View {
                 }
             }
             .padding(.horizontal, 26)
+            .frame(height: 40)
 
             // 명언 영역
             VStack(spacing: 8) {
@@ -80,7 +81,6 @@ struct CalendarView: View {
                         Image(systemName: "chevron.right")
                             .font(.system(size: 16))
                             .foregroundColor(.black)
-                            .padding()
                     }
                 }
             }
@@ -94,7 +94,7 @@ struct CalendarView: View {
                             if isToday(date) {
                                 RoundedRectangle(cornerRadius: 6)
                                     .fill(Color.black)
-                                    .frame(width: 30, height: 18)
+                                    .frame(width: 26, height: 18)
                             }
 
                             Text(dayOfWeek(for: date))
@@ -126,14 +126,11 @@ struct CalendarView: View {
                 }
             }
             Spacer()
-
         }
         .onAppear {
             loadWeekDates()
             loadStudyData()
         }
-        .padding(.vertical, -60)
-
     }
 
     // 오늘 날짜인지 확인

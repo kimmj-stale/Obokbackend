@@ -17,29 +17,45 @@ struct DiaryRowView: View {
                 .foregroundColor(.black)
 
             Text("7. 공부한 내용 : \(diary.content)")
-                .font(.subheadline)
-                .foregroundColor(.gray)
+                .font(.system(size: 14))
+                .foregroundColor(.black)
+                .padding(.leading, 10)
 
             HStack {
                 Text("마음")
-                    .font(.caption)
+                    .font(.system(size: 12))
                     .foregroundColor(.gray)
-                Text("#열심히")
-                    .font(.caption)
-                    .foregroundColor(.blue)
-
                 Spacer()
-
-                Text("분량 \(diary.understandingLevel) 페이지")
-                    .font(.caption)
-                    .foregroundColor(.orange)
-
+                
+                Text("분량")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
                 Spacer()
-
-                Text("이해도 \(diary.understandingLevel * 10)%")
-                    .font(.caption)
-                    .foregroundColor(.red)
+                
+                Text("이해도")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
             }
+            .padding(.leading, 10)
+
+            HStack {
+                Text("#열심히")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.blue)
+                Spacer()
+                
+            
+                Text("\(diary.understandingLevel) 페이지")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.orange)
+                Spacer()
+                
+                Text("\(diary.understandingLevel * 10)%")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.red)
+
+            }
+            .padding(.leading, 10)
         }
         .padding(.vertical, 8)
     }
