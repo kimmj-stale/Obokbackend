@@ -29,9 +29,13 @@ struct MainView: View {
                         .padding(.horizontal, 16)
                         .padding(.top, 8)
                         .padding(.leading, 10)
-
+                    
                     List(todayDiaries) { diary in
                         NavigationLink(destination: DiaryDetailView(diary: diary)) {
+                            RoundedRectangle(cornerRadius: 18)
+                                .fill(Color.blue)
+                                .frame(width: 8, height: 24)
+                                .padding(.bottom, 70)
                             DiaryRowView(diary: diary) // 일기 정보
                         }
                     }
