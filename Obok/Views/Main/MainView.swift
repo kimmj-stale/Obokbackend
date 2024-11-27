@@ -25,18 +25,22 @@ struct MainView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("오늘 일기")
                         .font(.system(size: 16, weight: .bold))
-                        .fontWeight(.bold)
                         .padding(.horizontal, 16)
                         .padding(.top, 8)
-                        .padding(.leading, 10)
-                    
-                    List(todayDiaries) { diary in
-                        NavigationLink(destination: DiaryDetailView(diary: diary)) {
-                            RoundedRectangle(cornerRadius: 18)
-                                .fill(Color.blue)
-                                .frame(width: 8, height: 24)
-                                .padding(.bottom, 70)
-                            DiaryRowView(diary: diary) // 일기 정보
+
+                    List(todayDiaries.indices, id: \.self) { index in
+                        NavigationLink(destination: DiaryDetailView(diary: todayDiaries[index])) {
+                            HStack(spacing: 8) {
+                                // 과목별 색상 표시
+                                RoundedRectangle(cornerRadius: 18)
+                                    .fill(CustomColor.colors[index % CustomColor.colors.count]) // 색상 순환
+                                    .frame(width: 8, height: 24)
+                                    .padding(.bottom, 70)
+
+                                // 일기 정보 표시
+                                DiaryRowView(diary: todayDiaries[index])
+                            }
+                            .padding(.vertical, 8)
                         }
                     }
                     .listStyle(PlainListStyle())
@@ -45,6 +49,8 @@ struct MainView: View {
                 .background(Color.white)
                 .cornerRadius(16)
                 .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+
+                Spacer() // 하단 공간 확보
             }
 
             // createbutton.png
@@ -82,7 +88,7 @@ struct MainView: View {
         todayDiaries = [
             Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
             Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
-            Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
+            Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: [])
         ]
     }
 }
