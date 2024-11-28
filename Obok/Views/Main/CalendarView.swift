@@ -129,7 +129,6 @@ struct CalendarView: View {
         }
         .onAppear {
             loadWeekDates()
-            loadStudyData()
         }
     }
 
@@ -150,17 +149,6 @@ struct CalendarView: View {
         weekDates = (0..<7).compactMap {
             calendar.date(byAdding: .day, value: $0, to: monday)
         }
-    }
-
-    // 공부 데이터 로드 (더미 데이터)
-    private func loadStudyData() {
-        let calendar = Calendar.current
-        studyData = [
-            calendar.date(byAdding: .day, value: 0, to: selectedDate)!: [.red, .blue, .orange],
-            calendar.date(byAdding: .day, value: 1, to: selectedDate)!: [.green],
-            calendar.date(byAdding: .day, value: 2, to: selectedDate)!: [.purple, .pink],
-            calendar.date(byAdding: .day, value: 3, to: selectedDate)!: []
-        ]
     }
 
     // 주 변경

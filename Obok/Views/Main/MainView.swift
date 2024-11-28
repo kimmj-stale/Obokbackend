@@ -36,7 +36,7 @@ struct MainView: View {
                                     .fill(CustomColor.colors[index % CustomColor.colors.count]) // 색상 순환
                                     .frame(width: 8, height: 24)
                                     .padding(.bottom, 70)
-
+                        
                                 // 일기 정보 표시
                                 DiaryRowView(diary: todayDiaries[index])
                             }
