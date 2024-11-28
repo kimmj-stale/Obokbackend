@@ -44,19 +44,48 @@ struct DiaryRowView: View {
                     .foregroundColor(.blue)
                 Spacer()
                 
-            
                 Text("\(diary.understandingLevel) 페이지")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.orange)
+                    .foregroundColor(.red)
                 Spacer()
+                
                 
                 Text("\(diary.understandingLevel * 10)%")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(.red)
-
+                HStack(spacing: 4) {
+                    ForEach(0..<5) { index in
+                        Circle()
+                            .strokeBorder(Color.red, lineWidth: 1)
+                            .background(
+                                Circle()
+                                    .foregroundColor(index < filledCirclesCount() ? .red : .clear)
+                            )
+                            .frame(width: 9, height: 9)
+                    }
+                }
+                
             }
             .padding(.leading, 10)
         }
         .padding(.vertical, 8)
     }
+
+    // 이해도에 맞게 색칠된 동그라미 수 계산
+    private func filledCirclesCount() -> Int {
+        if diary.understandingLevel >= 80 {
+            return 0
+        } else if diary.understandingLevel >= 60 {
+            return 1
+        } else if diary.understandingLevel >= 40 {
+            return 2
+        } else if diary.understandingLevel >= 20 {
+            return 3
+        } else if diary.understandingLevel > 0 {
+            return 4
+        } else {
+            return 5
+        }
+    }
 }
+
