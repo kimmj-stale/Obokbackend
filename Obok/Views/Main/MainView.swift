@@ -84,11 +84,24 @@ struct MainView: View {
 
     // 오늘 일기 데이터를 불러오는 메서드
     func loadTodayDiaries() {
-        // 샘플 데이터 로드 (추후 데이터베이스 연동 필요)
-        todayDiaries = [
-            Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
-            Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: []),
-            Diary(id: UUID(), date: Date(), title: "수학 복습", content: "미적분 복습", subject: "수학", understandingLevel: 8, distractions: [], improvements: [])
-        ]
+        todayDiaries = []
+
+        // 샘플 데이터 생성 (추후 데이터베이스 연동 필요)
+        let titles = ["수학 복습", "사회 복습", "영어 단어 암기"]
+        let contents = ["미적분 복습", "역사 정리", "단어 20개 복습"]
+        let subjects = ["수학", "사회", "영어"]
+
+        for (index, title) in titles.enumerated() {
+            let diary = Diary(
+                id: UUID(),
+                date: Date(),
+                title: title,
+                content: contents[index],
+                subject: subjects[index],
+                understandingLevel: (8 - index * 2),
+                colorIndex: index % CustomColor.colors.count // 색상 인덱스를 순차적으로 할당
+            )
+            todayDiaries.append(diary)
+        }
     }
 }

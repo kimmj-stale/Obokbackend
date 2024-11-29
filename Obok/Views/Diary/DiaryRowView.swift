@@ -11,6 +11,8 @@ struct DiaryRowView: View {
     let diary: Diary // Models/Diary.swift에서 정의된 Diary 사용
 
     var body: some View {
+        let color = CustomColor.colors[diary.colorIndex] // 일기 색상 지정
+
         VStack(alignment: .leading, spacing: 8) {
             Text(diary.title)
                 .font(.headline)
@@ -41,30 +43,29 @@ struct DiaryRowView: View {
             HStack {
                 Text("#열심히")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.blue)
+                    .foregroundColor(color)
                 Spacer()
                 
                 Text("\(diary.understandingLevel) 페이지")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.red)
+                    .foregroundColor(color)
                 Spacer()
-                
                 
                 Text("\(diary.understandingLevel * 10)%")
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(.red)
+                    .foregroundColor(color)
+
                 HStack(spacing: 4) {
                     ForEach(0..<5) { index in
                         Circle()
-                            .strokeBorder(Color.red, lineWidth: 1)
+                            .strokeBorder(color, lineWidth: 1)
                             .background(
                                 Circle()
-                                    .foregroundColor(index < filledCirclesCount() ? .red : .clear)
+                                    .foregroundColor(index < filledCirclesCount() ? color : .clear)
                             )
                             .frame(width: 9, height: 9)
                     }
                 }
-                
             }
             .padding(.leading, 10)
         }
@@ -81,11 +82,8 @@ struct DiaryRowView: View {
             return 2
         } else if diary.understandingLevel >= 20 {
             return 3
-        } else if diary.understandingLevel > 0 {
-            return 4
         } else {
-            return 5
+            return 4
         }
     }
 }
-
