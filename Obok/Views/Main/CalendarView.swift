@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalendarView: View {
-    @Binding var selectedDate: Date // 선택된 날짜 바인딩
+    @Binding var selectedDate: Date // • 선택된 날짜 바인딩
     @State private var weekDates: [Date] = [] // 현재 주차 날짜들
     @State private var studyData: [Date: [Color]] = [:] // 날짜별 과목 색상
 
@@ -105,21 +105,25 @@ struct CalendarView: View {
                             // 날짜 배경 둥근 사각형
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(Color.clear)
-                                .frame(width: 45, height: 45)
+                                .frame(width: 30, height: 30)
                                 .overlay(
-                                    HStack(spacing: 0) {
-                                        if let subjects = studyData[date], !subjects.isEmpty {
-                                            ForEach(0..<min(subjects.count, 3), id: \.self) { index in
-                                                RoundedRectangle(cornerRadius: 0)
-                                                    .fill(subjects[index])
-                                                    .frame(width: 45 / CGFloat(subjects.count))
+                                    GeometryReader { geometry in
+                                        VStack(spacing: 0) {
+                                            if let subjects = studyData[date], !subjects.isEmpty {
+                                                ForEach(0..<min(subjects.count, 3), id: \.self) { index in
+                                                    RoundedRectangle(cornerRadius: 0)
+                                                        .fill(subjects[index])
+                                                        .frame(height: geometry.size.height / CGFloat(subjects.count))
+                                                }
+                                            } else {
+                                                RoundedRectangle(cornerRadius: 6)
+                                                    .fill(Color.gray.opacity(0.1))
+                                                    .frame(height: geometry.size.height)
                                             }
-                                        } else {
-                                            RoundedRectangle(cornerRadius: 6)
-                                                .fill(Color.gray.opacity(0.1))
                                         }
                                     }
                                 )
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
 
                             // 날짜 숫자
                             Text("\(day(for: date))")
