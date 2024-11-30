@@ -84,10 +84,11 @@ struct MainView: View {
         todayDiaries = []
 
         // 샘플 데이터 생성 (추후 데이터베이스 연동 필요)
-        let titles = ["수학 복습", "사회 복습", "영어 단어 암기"]
-        let contents = ["미적분 복습", "역사 정리", "단어 20개 복습"]
+        let titles = ["수학 복습", "사회 복습", "영어 단어"]
+        let contents = ["미적분 복습", "역사 정리", "단어 100개"]
         let subjects = ["수학", "사회", "영어"]
-        let understandingLevels = [100, 80, 60]
+        let pageCounts = [10, 8, 15] // 각 과목별 페이지 수
+        let understandingLevels = [100, 80, 60] // 각 과목별 이해도
 
         for (index, title) in titles.enumerated() {
             let diary = Diary(
@@ -96,6 +97,7 @@ struct MainView: View {
                 title: title,
                 content: contents[index],
                 subject: subjects[index],
+                pageCount: pageCounts[index],
                 understandingLevel: understandingLevels[index],
                 colorIndex: index % CustomColor.colors.count // 색상 인덱스를 순차적으로 할당
             )

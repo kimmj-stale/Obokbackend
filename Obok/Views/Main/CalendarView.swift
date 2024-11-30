@@ -56,7 +56,6 @@ struct CalendarView: View {
                     .font(.system(size: 16))
                     .padding(.horizontal, 24)
                     .frame(maxWidth: .infinity, alignment: .leading)
-
             }
 
             // 중앙 이전 주/다음 주 버튼과 월 표시
@@ -103,31 +102,41 @@ struct CalendarView: View {
                         }
 
                         ZStack {
-                            Circle()
-                                .stroke(selectedDate == date ? Color.blue : Color.clear, lineWidth: 2)
-                                .frame(width: 45, height: 15)
+                            // 날짜 배경 둥근 사각형
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(Color.clear)
+                                .frame(width: 45, height: 45)
+                                .overlay(
+                                    HStack(spacing: 0) {
+                                        if let subjects = studyData[date], !subjects.isEmpty {
+                                            ForEach(0..<min(subjects.count, 3), id: \.self) { index in
+                                                RoundedRectangle(cornerRadius: 0)
+                                                    .fill(subjects[index])
+                                                    .frame(width: 45 / CGFloat(subjects.count))
+                                            }
+                                        } else {
+                                            RoundedRectangle(cornerRadius: 6)
+                                                .fill(Color.gray.opacity(0.1))
+                                        }
+                                    }
+                                )
 
-                            VStack(spacing: 2) {
-                                ForEach(studyData[date] ?? [], id: \.self) { color in
-                                    Circle()
-                                        .fill(color)
-                                        .frame(width: 10, height: 10)
-                                }
-                            }
+                            // 날짜 숫자
+                            Text("\(day(for: date))")
+                                .font(.headline)
+                                .foregroundColor(.black)
+                                .frame(width: 45, height: 45)
                         }
                         .onTapGesture {
                             selectedDate = date
                         }
-
-                        Text("\(day(for: date))")
-                            .font(.headline)
-                            .foregroundColor(colorForWeekday(date))
                     }
                 }
             }
         }
         .onAppear {
             loadWeekDates()
+            loadStudyData() // 초기 데이터 로드
         }
         .background(Color.white)
     }
@@ -157,6 +166,7 @@ struct CalendarView: View {
         if let newDate = calendar.date(byAdding: .weekOfYear, value: offset, to: selectedDate) {
             selectedDate = newDate
             loadWeekDates()
+            loadStudyData() // 주 변경 시 데이터 로드
         }
     }
 
@@ -193,6 +203,18 @@ struct CalendarView: View {
             return .red
         } else {
             return .primary
+        }
+    }
+
+    // 데이터 로드 (샘플 데이터, 추후에는 불러오는걸로 수정)
+    private func loadStudyData() {
+        // 샘플 데이터를 추가하여 studyData 업데이트
+        for (index, date) in weekDates.enumerated() {
+            // 각 날짜에 랜덤하게 과목 색상 추가
+            let subjectColors = (0..<min(index + 1, 3)).map { i in
+                CustomColor.colors[i % CustomColor.colors.count]
+            }
+            studyData[date] = subjectColors
         }
     }
 }

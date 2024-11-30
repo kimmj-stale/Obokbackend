@@ -15,16 +15,18 @@ struct Diary: Identifiable {
     let title: String
     let content: String
     let subject: String
+    let pageCount: Int
     let understandingLevel: Int
-    let colorIndex: Int // 색상 인덱스 추가
+    let colorIndex: Int
 
-    init(id: UUID, date: Date, title: String, content: String, subject: String, understandingLevel: Int, colorIndex: Int) {
+    init(id: UUID, date: Date, title: String, content: String, subject: String, pageCount: Int, understandingLevel: Int, colorIndex: Int) {
         self.id = id
         self.date = date
         self.title = title
         self.content = content
         self.subject = subject
+        self.pageCount = pageCount
         self.understandingLevel = understandingLevel
-        self.colorIndex = colorIndex // 7개 색상
+        self.colorIndex = colorIndex
     }
 }

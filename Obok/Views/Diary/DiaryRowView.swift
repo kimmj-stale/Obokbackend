@@ -18,7 +18,7 @@ struct DiaryRowView: View {
                 .font(.headline)
                 .foregroundColor(.black)
 
-            Text("7. 공부한 내용 : \(diary.content)")
+            Text("공부한 내용 : \(diary.content)")
                 .font(.system(size: 14))
                 .foregroundColor(.black)
                 .padding(.leading, 10)
@@ -46,7 +46,7 @@ struct DiaryRowView: View {
                     .foregroundColor(color)
                 Spacer()
                 
-                Text("\(diary.understandingLevel) 페이지")
+                Text("\(diary.pageCount) 페이지")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(color)
                 Spacer()
