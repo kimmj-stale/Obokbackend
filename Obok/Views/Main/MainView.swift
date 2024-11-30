@@ -90,6 +90,7 @@ struct MainView: View {
         let titles = ["수학 복습", "사회 복습", "영어 단어 암기"]
         let contents = ["미적분 복습", "역사 정리", "단어 20개 복습"]
         let subjects = ["수학", "사회", "영어"]
+        let understandingLevels = [100, 80, 60]
 
         for (index, title) in titles.enumerated() {
             let diary = Diary(
@@ -98,7 +99,7 @@ struct MainView: View {
                 title: title,
                 content: contents[index],
                 subject: subjects[index],
-                understandingLevel: (8 - index * 2),
+                understandingLevel: understandingLevels[index],
                 colorIndex: index % CustomColor.colors.count // 색상 인덱스를 순차적으로 할당
             )
             todayDiaries.append(diary)

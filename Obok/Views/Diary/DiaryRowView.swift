@@ -51,7 +51,7 @@ struct DiaryRowView: View {
                     .foregroundColor(color)
                 Spacer()
                 
-                Text("\(diary.understandingLevel * 10)%")
+                Text("\(diary.understandingLevel)%")
                     .font(.system(size: 16, weight: .semibold))
                     .foregroundColor(color)
 
@@ -74,16 +74,19 @@ struct DiaryRowView: View {
 
     // 이해도에 맞게 색칠된 동그라미 수 계산
     private func filledCirclesCount() -> Int {
-        if diary.understandingLevel >= 80 {
-            return 0
-        } else if diary.understandingLevel >= 60 {
-            return 1
-        } else if diary.understandingLevel >= 40 {
-            return 2
-        } else if diary.understandingLevel >= 20 {
-            return 3
-        } else {
-            return 4
+            switch diary.understandingLevel {
+            case 100:
+                return 5
+            case 80..<100:
+                return 4
+            case 60..<80:
+                return 3
+            case 40..<60:
+                return 2
+            case 20..<40:
+                return 1
+            default:
+                return 0
         }
     }
 }
