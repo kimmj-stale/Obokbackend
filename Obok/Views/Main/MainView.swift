@@ -33,7 +33,7 @@ struct MainView: View {
                             HStack(spacing: 8) {
                                 // 과목별 색상 표시
                                 RoundedRectangle(cornerRadius: 18)
-                                    .fill(CustomColor.colors[index % CustomColor.colors.count]) // 색상 순환
+                                    .fill(CustomColor.colors[index % (CustomColor.colors.count - 1)]) // 색상 순환
                                     .frame(width: 8, height: 24)
                                     .padding(.bottom, 70)
                         
@@ -84,11 +84,11 @@ struct MainView: View {
         todayDiaries = []
 
         // 샘플 데이터 생성 (추후 데이터베이스 연동 필요)
-        let titles = ["수학 복습", "사회 복습", "영어 단어"]
-        let contents = ["미적분 복습", "역사 정리", "단어 100개"]
-        let subjects = ["수학", "사회", "영어"]
-        let pageCounts = [10, 8, 15] // 각 과목별 페이지 수
-        let understandingLevels = [100, 80, 60] // 각 과목별 이해도
+        let titles = ["국어 문제", "국어 문제", "영어 단어", "수학 복습", "수학 복습", "사회 복습", "물리 인강", "지구과학 복습"]
+        let contents = ["비문학", "문학", "단어 100개", "미적분 복습", "기벡 복습", "개념 정리", "1, 2강", "오늘 수업 분량"]
+        let subjects = ["국어", "국어", "영어", "수학", "수학", "사회", "물리", "지구과학"]
+        let pageCounts = [10, 8, 15, 6, 20, 3, 5, 9] // 각 과목별 페이지 수
+        let understandingLevels = [50, 60, 100, 80, 100, 10, 80, 60] // 각 과목별 이해도
 
         for (index, title) in titles.enumerated() {
             let diary = Diary(
@@ -99,7 +99,7 @@ struct MainView: View {
                 subject: subjects[index],
                 pageCount: pageCounts[index],
                 understandingLevel: understandingLevels[index],
-                colorIndex: index % CustomColor.colors.count // 색상 인덱스를 순차적으로 할당
+                colorIndex: index % (CustomColor.colors.count - 1) // 색상 인덱스를 7개에서만 순환되도록 할당
             )
             todayDiaries.append(diary)
         }

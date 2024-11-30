@@ -214,7 +214,6 @@ struct CalendarView: View {
     private func loadStudyData() {
         // 샘플 데이터를 추가하여 studyData 업데이트
         for (index, date) in weekDates.enumerated() {
-            // 각 날짜에 랜덤하게 과목 색상 추가
             let subjectColors = (0..<min(index + 1, 3)).map { i in
                 CustomColor.colors[i % CustomColor.colors.count]
             }
