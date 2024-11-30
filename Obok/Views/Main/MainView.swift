@@ -26,7 +26,7 @@ struct MainView: View {
                     Text("오늘 일기")
                         .font(.system(size: 16, weight: .bold))
                         .padding(.horizontal, 16)
-                        .padding(.top, 8)
+                        .padding(.top, 15)
 
                     List(todayDiaries.indices, id: \.self) { index in
                         NavigationLink(destination: DiaryDetailView(diary: todayDiaries[index])) {
@@ -46,11 +46,8 @@ struct MainView: View {
                     .listStyle(PlainListStyle())
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color.white)
-                .cornerRadius(16)
-                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
-
-                Spacer() // 하단 공간 확보
+                .background(CustomColor.colors.last!) // CustomColor.swift의 마지막 색깔 사용
+                .padding(.bottom, 10)
             }
 
             // createbutton.png

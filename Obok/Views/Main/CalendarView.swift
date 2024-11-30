@@ -125,11 +125,11 @@ struct CalendarView: View {
                     }
                 }
             }
-            Spacer()
         }
         .onAppear {
             loadWeekDates()
         }
+        .background(Color.white)
     }
 
     // 오늘 날짜인지 확인

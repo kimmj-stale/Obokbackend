@@ -10,7 +10,7 @@ import SwiftUI
 struct CustomColor {
     // Hex 값만을 나열한 배열
     private static let hexValues: [String] = [
-        "#FF7070", "#FFA32A", "#B6E746", "#50DC86", "#83DCFF", "#4875F2", "#B383FF"
+        "#FF7070", "#FFA32A", "#B6E746", "#50DC86", "#83DCFF", "#4875F2", "#B383FF", "#F6F6F6"
     ]
 
     // Hex -> Color 변환

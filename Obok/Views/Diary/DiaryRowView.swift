@@ -74,19 +74,18 @@ struct DiaryRowView: View {
 
     // 이해도에 맞게 색칠된 동그라미 수 계산
     private func filledCirclesCount() -> Int {
-            switch diary.understandingLevel {
-            case 100:
-                return 5
-            case 80..<100:
-                return 4
-            case 60..<80:
-                return 3
-            case 40..<60:
-                return 2
-            case 20..<40:
-                return 1
-            default:
-                return 0
+        if diary.understandingLevel >= 100 {
+            return 5
+        } else if diary.understandingLevel >= 80 {
+            return 4
+        } else if diary.understandingLevel >= 60 {
+            return 3
+        } else if diary.understandingLevel >= 40 {
+            return 2
+        } else if diary.understandingLevel >= 20 {
+            return 1
+        } else {
+            return 0
         }
     }
 }
