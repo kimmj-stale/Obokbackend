@@ -57,20 +57,15 @@ struct MainView: View {
                 HStack {
                     Spacer()
 
-                    Button(action: {
-                        showCreateView.toggle() // DiaryCreateView로 이동
-                    }) {
+                    NavigationLink(destination: DiaryCreateView()) {
                         Image("creatediary") // 버튼 이미지
                             .resizable()
                             .scaledToFit()
                             .frame(width: 56, height: 56) // 버튼 크기
-                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
+                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 2)
                     }
                     .padding(.trailing, 24)
                     .padding(.bottom, 24)
-                    .sheet(isPresented: $showCreateView) {
-                        DiaryCreateView() // Diary 작성 뷰로 이동
-                    }
                 }
             }
         }

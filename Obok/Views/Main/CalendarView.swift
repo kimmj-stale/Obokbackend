@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CalendarView: View {
-    @Binding var selectedDate: Date // • 선택된 날짜 바인딩
+    @Binding var selectedDate: Date // 선택된 날짜 바인딩
     @State private var weekDates: [Date] = [] // 현재 주차 날짜들
     @State private var studyData: [Date: [Color]] = [:] // 날짜별 과목 색상
 
@@ -48,15 +48,18 @@ struct CalendarView: View {
                 }
             }
             .padding(.horizontal, 26)
+            .padding(.top, -40)
             .frame(height: 40)
 
             // 명언 영역
             VStack(spacing: 8) {
                 Text("오늘은 월요일..........\n월요일......................")
                     .font(.system(size: 16))
+                    .lineSpacing(16 * 0.4) // 줄 간격 140
                     .padding(.horizontal, 24)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .padding(.top, -20)
 
             // 중앙 이전 주/다음 주 버튼과 월 표시
             HStack {

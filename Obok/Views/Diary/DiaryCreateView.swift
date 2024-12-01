@@ -13,7 +13,7 @@ struct DiaryCreateView: View {
     
     var body: some View {
         VStack {
-            Text("학습 일기 작성하기")
+            Text("일기 작성")
                 .font(.headline)
         }
     }
