@@ -41,14 +41,23 @@ struct DiaryCreateView: View {
                     .font(.system(size: 16))
                     .foregroundColor(.black)
             }
-            .padding([.top, .horizontal], 18)
+            .padding([.top, .horizontal], 24)
 
             // 학습일기 작성하기 상단 바
-            ProgressView(value: Double(currentPage), total: Double(totalPages))
-                .progressViewStyle(LinearProgressViewStyle(tint: CustomColor.colors.first!))
-                .frame(height: 8)
-                .padding([.top, .horizontal], 16)
-            
+            ZStack(alignment: .leading) {
+                // 전체 길이
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(height: 10)
+
+                // 현재 진행된 부분
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(CustomColor.colors.first!) // 진행중인 부분 색상
+                    .frame(width: CGFloat(currentPage) / CGFloat(totalPages) * UIScreen.main.bounds.width, height: 10)
+            }
+            .padding(.horizontal, 24)
+            .padding(.top, 11)
+
             Spacer()
         }
         .navigationBarHidden(true) // 기본 네비게이션 바 숨기기
