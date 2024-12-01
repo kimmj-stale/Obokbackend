@@ -33,7 +33,7 @@ struct MainView: View {
                             HStack(spacing: 8) {
                                 // 과목별 색상 표시
                                 RoundedRectangle(cornerRadius: 18)
-                                    .fill(CustomColor.colors[index % (CustomColor.colors.count - 1)]) // 색상 순환
+                                    .fill(CustomColor.colors[todayDiaries[index].colorIndex]) // 색상 순환
                                     .frame(width: 8, height: 24)
                                     .padding(.bottom, 70)
                         
@@ -86,6 +86,9 @@ struct MainView: View {
         let understandingLevels = [50, 60, 100, 80, 100, 10, 80, 60] // 각 과목별 이해도
 
         for (index, title) in titles.enumerated() {
+            let subject = subjects[index]
+            let colorIndex = subjects.firstIndex(of: subject)! % (CustomColor.colors.count - 1) // 색상 인덱스를 7개에서만 순환되도록 할당, 과목 순서에 맞게
+                                                                                                // ! -> nil이 아님을 가정
             let diary = Diary(
                 id: UUID(),
                 date: Date(),
@@ -94,7 +97,7 @@ struct MainView: View {
                 subject: subjects[index],
                 pageCount: pageCounts[index],
                 understandingLevel: understandingLevels[index],
-                colorIndex: index % (CustomColor.colors.count - 1) // 색상 인덱스를 7개에서만 순환되도록 할당
+                colorIndex: colorIndex
             )
             todayDiaries.append(diary)
         }
