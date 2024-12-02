@@ -10,12 +10,12 @@
 import SwiftUI
 
 struct DiaryCreateView: View {
-    @Environment(\.presentationMode) var presentationMode // 화면을 닫기 위한 환경 변수
+    @Environment(\.presentationMode) var presentationMode
     @State private var currentPage = 1
     private let totalPages = 5
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             // 상단 네비게이션 영역
             HStack {
                 Button(action: {
@@ -30,7 +30,7 @@ struct DiaryCreateView: View {
                 Spacer()
 
                 Text("학습일기 작성하기")
-                    .font(.system(size: 16))
+                    .font(.system(size: 18))
                     .fontWeight(.bold)
                     .foregroundColor(.black)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,25 +44,31 @@ struct DiaryCreateView: View {
             .padding([.top, .horizontal], 24)
 
             // 학습일기 작성하기 상단 바
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    // 전체 길이
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.gray.opacity(0.2))
-                        .frame(height: 10)
-                    
-                    // 현재 진행된 부분
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(CustomColor.colors.first!) // 진행중인 부분 색상
-                        .frame(width: (CGFloat(currentPage) / CGFloat(totalPages)) * geometry.size.width, height: 10)
-                }
+            ZStack(alignment: .leading) {
+                // 전체 길이
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(height: 10)
+
+                // 현재 진행된 부분
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(CustomColor.colors.first!) // 진행중인 부분 색상
+                    .frame(width: CGFloat(currentPage) / CGFloat(totalPages) * (UIScreen.main.bounds.width - 48), height: 10)
             }
             .padding(.horizontal, 24)
             .padding(.top, 11)
 
+            Spacer().frame(height: 84)
+
+            Text("저는 오늘 이 과목을 공부했어요!")
+                .font(.system(size: 18))
+                .fontWeight(.bold)
+                .foregroundColor(.black)
+                .padding(.horizontal, 25)
+
             Spacer()
         }
-        .navigationBarHidden(true) // 기본 네비게이션 바 숨기기
+        .navigationBarHidden(true)
     }
 }
 
@@ -71,3 +77,4 @@ struct ContentView_Previews: PreviewProvider {
         DiaryCreateView()
     }
 }
+
