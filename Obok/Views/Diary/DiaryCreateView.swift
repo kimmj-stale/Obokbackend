@@ -13,6 +13,7 @@ struct DiaryCreateView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var currentPage = 1
     private let totalPages = 5
+    @State private var subjects: [String] = []
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -66,6 +67,30 @@ struct DiaryCreateView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 25)
 
+            // 과목 버튼 영역
+            HStack {
+                // '+ 새 과목 추가' 버튼
+                Button(action: {
+                    // modal 뜨게, 임시로 print
+                    print("과목 추가")
+                }) {
+                    HStack {
+                        Text("+ 새 과목 추가")
+                            .font(.system(size: 14))
+                            .foregroundColor(.black)
+                            .padding(.horizontal, 4)
+                    }
+                    .padding(8)
+                    .background(RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color.gray))
+                    .padding(.top, 25)
+                }
+                    
+                // 추가된 과목
+
+            }
+            .padding(.horizontal, 25)
+
             Spacer()
         }
         .navigationBarHidden(true)
@@ -77,4 +102,3 @@ struct ContentView_Previews: PreviewProvider {
         DiaryCreateView()
     }
 }
-
