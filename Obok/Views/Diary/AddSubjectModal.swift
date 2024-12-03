@@ -10,6 +10,8 @@ import SwiftUI
 struct AddSubjectModal: View {
     @Binding var isShowingModal: Bool
     @State private var subjectName: String = ""
+    @State private var currentWord = 0
+    private let totalWord = 8
 
     var body: some View {
         VStack {
@@ -22,6 +24,10 @@ struct AddSubjectModal: View {
 
                 Spacer()
 
+                Text("\(currentWord) / \(totalWord)")
+                    .font(.system(size: 16))
+                    .foregroundColor(.black)
+                
                 Button(action: {
                     isShowingModal = false
                 }) {
@@ -38,10 +44,13 @@ struct AddSubjectModal: View {
                 .font(.system(size: 16))
                 .padding(.horizontal, 16)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .onChange(of: subjectName) { newValue in // 8글자 제한
-                    if newValue.count > 8 {
-                        subjectName = String(newValue.prefix(8))
+                .onChange(of: subjectName) { newValue in
+                    // 8글자 제한
+                    if newValue.count > totalWord {
+                        subjectName = String(newValue.prefix(totalWord))
                     }
+                    // 현재 입력된 글자 수 업데이트
+                    currentWord = subjectName.count
                 }
 
             Spacer().frame(height: 26)
