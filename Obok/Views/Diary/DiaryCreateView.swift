@@ -17,85 +17,99 @@ struct DiaryCreateView: View {
     @State private var isShowingModal = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            // 상단 네비게이션 영역
-            HStack {
-                Button(action: {
-                    presentationMode.wrappedValue.dismiss() // 이전 화면으로 돌아가기
-                }) {
-                    Image("backbutton")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
+        ZStack {
+            VStack(alignment: .leading) {
+                // 상단 네비게이션 영역
+                HStack {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss() // 이전 화면으로 돌아가기
+                    }) {
+                        Image("backbutton")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                    }
+
+                    Spacer()
+
+                    Text("학습일기 작성하기")
+                        .font(.system(size: 18))
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                    Spacer()
+
+                    Text("\(currentPage) / \(totalPages)")
+                        .font(.system(size: 16))
+                        .foregroundColor(.black)
                 }
+                .padding([.top, .horizontal], 24)
 
-                Spacer()
+                // 학습일기 작성하기 상단 바
+                ZStack(alignment: .leading) {
+                    // 전체 길이
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(height: 10)
 
-                Text("학습일기 작성하기")
+                    // 현재 진행된 부분
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(CustomColor.colors.first!) // 진행중인 부분 색상
+                        .frame(width: CGFloat(currentPage) / CGFloat(totalPages) * (UIScreen.main.bounds.width - 48), height: 10)
+                }
+                .padding(.horizontal, 24)
+                .padding(.top, 11)
+
+                Spacer().frame(height: 84)
+
+                Text("저는 오늘 이 과목을 공부했어요!")
                     .font(.system(size: 18))
                     .fontWeight(.bold)
                     .foregroundColor(.black)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 25)
+
+                // 과목 버튼 영역
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 10) {
+                        // 각 과목 버튼
+                        
+                        // '+ 새 과목 추가' 버튼
+                        Button(action: {
+                            isShowingModal = true
+                        }) {
+                            HStack {
+                                Text("+ 새 과목 추가")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 4)
+                            }
+                            .padding(8)
+                            .background(RoundedRectangle(cornerRadius: 20)
+                                .stroke(Color.gray))
+                            .padding(.top, 25)
+                        }
+                    }
+                    .padding(.horizontal, 25)
+                }
+                .padding(.top, 16)
 
                 Spacer()
-
-                Text("\(currentPage) / \(totalPages)")
-                    .font(.system(size: 16))
-                    .foregroundColor(.black)
             }
-            .padding([.top, .horizontal], 24)
 
-            // 학습일기 작성하기 상단 바
-            ZStack(alignment: .leading) {
-                // 전체 길이
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color.gray.opacity(0.2))
-                    .frame(height: 10)
-
-                // 현재 진행된 부분
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(CustomColor.colors.first!) // 진행중인 부분 색상
-                    .frame(width: CGFloat(currentPage) / CGFloat(totalPages) * (UIScreen.main.bounds.width - 48), height: 10)
-            }
-            .padding(.horizontal, 24)
-            .padding(.top, 11)
-
-            Spacer().frame(height: 84)
-
-            Text("저는 오늘 이 과목을 공부했어요!")
-                .font(.system(size: 18))
-                .fontWeight(.bold)
-                .foregroundColor(.black)
-                .padding(.horizontal, 25)
-
-            // 과목 버튼 영역
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 10) {
-                    // 각 과목 버튼
-                    // '+ 새 과목 추가' 버튼
-                    Button(action: {
-                        isShowingModal = true
-                    }) {
-                        HStack {
-                            Text("+ 새 과목 추가")
-                                .font(.system(size: 14))
-                                .foregroundColor(.black)
-                                .padding(.horizontal, 4)
-                        }
-                        .padding(8)
-                        .background(RoundedRectangle(cornerRadius: 20)
-                            .stroke(Color.gray))
-                        .padding(.top, 25)
+            // Modal
+            if isShowingModal {
+                Color.black.opacity(0.4)
+                    .edgesIgnoringSafeArea(.all)
+                    .onTapGesture {
+                        isShowingModal = false // 배경을 탭하면 모달 닫기
                     }
-                    .sheet(isPresented: $isShowingModal) {
-                        AddSubjectModal(isShowingModal: $isShowingModal)
-                    }
-                }
-                .padding(.horizontal, 25)
-            }
-            .padding(.top, 16)
 
-            Spacer()
+                AddSubjectModal(isShowingModal: $isShowingModal)
+                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 180)
+                    .background(Color.white)
+                    .cornerRadius(10)
+            }
         }
         .navigationBarHidden(true)
     }
@@ -106,4 +120,3 @@ struct ContentView_Previews: PreviewProvider {
         DiaryCreateView()
     }
 }
-
