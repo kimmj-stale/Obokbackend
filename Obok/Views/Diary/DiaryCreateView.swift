@@ -14,6 +14,7 @@ struct DiaryCreateView: View {
     @State private var currentPage = 1
     private let totalPages = 5
     @State private var subjects: [String] = []
+    @State private var isShowingModal = false
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -68,28 +69,31 @@ struct DiaryCreateView: View {
                 .padding(.horizontal, 25)
 
             // 과목 버튼 영역
-            HStack {
-                // '+ 새 과목 추가' 버튼
-                Button(action: {
-                    // modal 뜨게, 임시로 print
-                    print("과목 추가")
-                }) {
-                    HStack {
-                        Text("+ 새 과목 추가")
-                            .font(.system(size: 14))
-                            .foregroundColor(.black)
-                            .padding(.horizontal, 4)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    // 각 과목 버튼
+                    // '+ 새 과목 추가' 버튼
+                    Button(action: {
+                        isShowingModal = true
+                    }) {
+                        HStack {
+                            Text("+ 새 과목 추가")
+                                .font(.system(size: 14))
+                                .foregroundColor(.black)
+                                .padding(.horizontal, 4)
+                        }
+                        .padding(8)
+                        .background(RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.gray))
+                        .padding(.top, 25)
                     }
-                    .padding(8)
-                    .background(RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.gray))
-                    .padding(.top, 25)
+                    .sheet(isPresented: $isShowingModal) {
+                        AddSubjectModal(isShowingModal: $isShowingModal)
+                    }
                 }
-                    
-                // 추가된 과목
-
+                .padding(.horizontal, 25)
             }
-            .padding(.horizontal, 25)
+            .padding(.top, 16)
 
             Spacer()
         }
@@ -102,3 +106,4 @@ struct ContentView_Previews: PreviewProvider {
         DiaryCreateView()
     }
 }
+
