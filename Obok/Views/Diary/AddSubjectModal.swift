@@ -24,10 +24,6 @@ struct AddSubjectModal: View {
 
                 Spacer()
 
-                Text("\(currentWord) / \(totalWord)")
-                    .font(.system(size: 16))
-                    .foregroundColor(.black)
-                
                 Button(action: {
                     isShowingModal = false
                 }) {
@@ -39,19 +35,37 @@ struct AddSubjectModal: View {
             }
             .padding(.horizontal, 20)
 
-            // 과목 입력 텍스트 필드
-            TextField("과목명", text: $subjectName)
-                .font(.system(size: 16))
-                .padding(.horizontal, 16)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .onChange(of: subjectName) { newValue in
-                    // 8글자 제한
-                    if newValue.count > totalWord {
-                        subjectName = String(newValue.prefix(totalWord))
-                    }
-                    // 현재 입력된 글자 수 업데이트
-                    currentWord = subjectName.count
+            Spacer().frame(height: 20)
+
+            // 과목명     n / 8
+            VStack(alignment: .leading, spacing: 8) {
+                HStack {
+                    TextField("과목명", text: $subjectName)
+                        .font(.system(size: 16))
+                        .onChange(of: subjectName) { newValue in
+                            // 8글자 제한
+                            if newValue.count > totalWord {
+                                subjectName = String(newValue.prefix(totalWord))
+                            }
+                            // 현재 입력된 글자 수 업데이트
+                            currentWord = subjectName.count
+                        }
+                    
+                    Spacer()
+
+                    Text("\(currentWord) / \(totalWord)")
+                        .font(.system(size: 14))
+                        .foregroundColor(.gray)
+                        .padding(.trailing, 4)
                 }
+                .padding(.horizontal, 20)
+                
+                // 밑줄
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal, 18)
+            }
 
             Spacer().frame(height: 26)
 
