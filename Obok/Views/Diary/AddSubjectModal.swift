@@ -67,9 +67,8 @@ struct AddSubjectModal: View {
                     .padding()
                     .frame(maxWidth: .infinity)
                     .background(Color.gray.opacity(0.15))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 20)
             }
+            .padding(.bottom, -20) // 버튼을 모달 하단 끝에
         }
     }
 }
