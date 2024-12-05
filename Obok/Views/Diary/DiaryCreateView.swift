@@ -73,6 +73,20 @@ struct DiaryCreateView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
                         // 각 과목 버튼
+                        ForEach(subjects, id: \.self) { subject in
+                            HStack {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(Color.gray)
+                                    .frame(width: 10, height: 10)
+                                Text(subject)
+                                    .font(.system(size: 16))
+                                    .foregroundColor(.black)
+                                    .padding(.horizontal, 10)
+                                }
+                                .padding(10)
+                                .background(RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 2))
+                        }
                         
                         // '+ 새 과목 추가' 버튼
                         Button(action: {
@@ -105,7 +119,8 @@ struct DiaryCreateView: View {
                         isShowingModal = false // 배경을 탭하면 모달 닫기
                     }
 
-                AddSubjectModal(isShowingModal: $isShowingModal)
+                AddSubjectModal(isShowingModal: $isShowingModal, onAddSubject: { newSubject in subjects.append(newSubject)
+                })
                     .frame(width: UIScreen.main.bounds.width * 0.8, height: 180)
                     .background(Color.white)
                     .cornerRadius(10)
