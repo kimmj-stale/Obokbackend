@@ -73,19 +73,22 @@ struct DiaryCreateView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
                         // 각 과목 버튼
-                        ForEach(subjects, id: \.self) { subject in
+                        ForEach(subjects.indices, id: \.self) { index in
+                            let color = CustomColor.colors[index % (CustomColor.colors.count - 1)] // 마지막 색상 제외
                             HStack {
                                 RoundedRectangle(cornerRadius: 10)
-                                    .fill(Color.gray)
+                                    .fill(color)
                                     .frame(width: 10, height: 10)
-                                Text(subject)
+                                Text(subjects[index])
                                     .font(.system(size: 16))
                                     .foregroundColor(.black)
                                     .padding(.horizontal, 10)
                                 }
-                                .padding(10)
-                                .background(RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.gray, lineWidth: 2))
+                            .padding(8)
+                            .background(RoundedRectangle(cornerRadius: 20)
+                                    .stroke(color, lineWidth: 2))
+                            .padding(.top, 25)
+
                         }
                         
                         // '+ 새 과목 추가' 버튼
