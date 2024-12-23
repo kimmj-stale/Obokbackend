@@ -18,9 +18,10 @@ Notion : https://www.notion.so/138102c0bbf78013a754df5ad590238f
 ###
 - 📚 BackEnd
 ###
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F.svg?&style=for-the-badge&logo=springboot&logoColor=white)
+![Spring Security](https://img.shields.io/badge/Spring%20Security-6DB33F.svg?&style=for-the-badge&logo=springsequrity&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F.svg?&style=for-the-badge&logo=springboot&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1.svg?&style=for-the-badge&logo=mysql&logoColor=white)
+![Java](https://img.shields.io/badge/Java-000000.svg?&style=for-the-badge&logo=openjdk&logoColor=white)
 
 ###
 - 🎨 디자인
