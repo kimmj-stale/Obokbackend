@@ -70,8 +70,14 @@ struct DiaryCreateView: View {
                     .padding(.horizontal, 25)
 
                 // 과목 버튼 영역
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
+                ScrollView(.vertical, showsIndicators: true) {
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.flexible(), spacing: 16), // 유동적인 열 크기
+                            GridItem(.flexible(), spacing: 16)
+                        ],
+                        spacing: 16 // 행 간 간격 설정
+                    ) {
                         // 각 과목 버튼
                         ForEach(subjects.indices, id: \.self) { index in
                             let color = CustomColor.colors[index % (CustomColor.colors.count - 1)] // 마지막 색상 제외
@@ -83,11 +89,13 @@ struct DiaryCreateView: View {
                                     .font(.system(size: 16))
                                     .foregroundColor(.black)
                                     .padding(.horizontal, 10)
-                                }
+                                    .fixedSize(horizontal: true, vertical: false) // 텍스트가 생략되지 않도록 설정
+                            }
                             .padding(8)
                             .background(RoundedRectangle(cornerRadius: 20)
-                                    .stroke(color, lineWidth: 2))
-                            .padding(.top, 25)
+                                .stroke(color, lineWidth: 2)
+                            )
+                            .frame(maxWidth: .infinity, alignment: .leading) // 버튼을 좌측 정렬
 
                         }
                         
@@ -104,10 +112,11 @@ struct DiaryCreateView: View {
                             .padding(8)
                             .background(RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.gray))
-                            .padding(.top, 25)
+                            .frame(minWidth: 120, maxWidth: .infinity, alignment: .leading) // 버튼 크기 및 정렬 설정
                         }
                     }
                     .padding(.horizontal, 25)
+                    .padding(.vertical, 16)
                 }
                 .padding(.top, 16)
 
@@ -130,6 +139,47 @@ struct DiaryCreateView: View {
             }
         }
         .navigationBarHidden(true)
+    }
+}
+
+struct FlowLayout<Content: View>: View {
+    let spacing: CGFloat
+    let content: [Content]
+
+    init(spacing: CGFloat = 8, @ViewBuilder content: () -> [Content]) {
+        self.spacing = spacing
+        self.content = content()
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            self.generateContent(in: geometry)
+        }
+    }
+
+    private func generateContent(in geometry: GeometryProxy) -> some View {
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+
+        return ZStack(alignment: .topLeading) {
+            ForEach(0..<self.content.count, id: \.self) { index in
+                self.content[index]
+                    .padding(.horizontal, self.spacing)
+                    .alignmentGuide(.leading) { d in
+                        if width + d.width > geometry.size.width {
+                            width = 0
+                            height -= d.height + self.spacing
+                        }
+                        let result = width
+                        width += d.width
+                        return result
+                    }
+                    .alignmentGuide(.top) { _ in
+                        let result = height
+                        return result
+                    }
+            }
+        }
     }
 }
 
