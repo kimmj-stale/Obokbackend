@@ -81,23 +81,27 @@ struct DiaryCreateView: View {
                         // 각 과목 버튼
                         ForEach(subjects.indices, id: \.self) { index in
                             let color = CustomColor.colors[index % (CustomColor.colors.count - 1)] // 마지막 색상 제외
-                            HStack {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(color)
-                                    .frame(width: 10, height: 10)
-                                Text(subjects[index])
-                                    .font(.system(size: 16))
-                                    .foregroundColor(.black)
-                                    .padding(.horizontal, 10)
-                                    .fixedSize(horizontal: true, vertical: false) // 텍스트가 생략되지 않도록 설정
+                            Button(action: {
+                                    // 버튼을 탭했을 때 수행할 동작 추가
+                                    print("\(subjects[index]) 버튼 클릭")
+                                }) {
+                                    HStack {
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .fill(color)
+                                                    .frame(width: 10, height: 10)
+                                                Text(subjects[index])
+                                                    .font(.system(size: 16))
+                                                    .foregroundColor(.black)
+                                                    .padding(.horizontal, 10)
+                                                    .fixedSize(horizontal: true, vertical: false) // 텍스트가 생략되지 않도록 설정
+                                            }
+                                            .padding(8)
+                                            .background(RoundedRectangle(cornerRadius: 20)
+                                                .stroke(color, lineWidth: 2)
+                                            )
+                                            .frame(maxWidth: .infinity, alignment: .leading) // 버튼을 좌측 정렬
+                                        }
                             }
-                            .padding(8)
-                            .background(RoundedRectangle(cornerRadius: 20)
-                                .stroke(color, lineWidth: 2)
-                            )
-                            .frame(maxWidth: .infinity, alignment: .leading) // 버튼을 좌측 정렬
-
-                        }
                         
                         // '+ 새 과목 추가' 버튼
                         Button(action: {
