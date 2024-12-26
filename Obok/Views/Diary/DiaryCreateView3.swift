@@ -11,7 +11,7 @@ struct DiaryCreateView3: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var currentPage = 3
     private let totalPages = 5
-    @State private var understand: String = ""
+    @State private var explain: String = ""
 
     
     var body: some View {
@@ -59,6 +59,24 @@ struct DiaryCreateView3: View {
 
                 Spacer().frame(height: 40)
 
+                // 공부 내용 작성 영역
+                VStack {
+                    Text("공부한 내용 중 기억에 남는 내용은...")
+                        .font(.system(size: 15))
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                        .frame(width: UIScreen.main.bounds.width-50, height: 100)
+                        .overlay(
+                            TextField("", text: $explain)
+                                .multilineTextAlignment(.leading)
+                                .font(.system(size: 16))
+                        )
+                }
+                .padding(.horizontal, 25)
+                .padding(.bottom, 50)
                
                 // 다음으로 버튼
                 NavigationLink(destination: DiaryCreateView2()) {
