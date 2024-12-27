@@ -11,7 +11,7 @@ struct DiaryCreateView4: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var currentPage = 4
     private let totalPages = 5
-    @State private var explain: String = ""
+    @State private var explain2: String = ""
     private let maxTextLength = 150 // 글자 수 제한
 
     var body: some View {
@@ -59,6 +59,45 @@ struct DiaryCreateView4: View {
 
                 Spacer().frame(height: 40)
                 
+                // 공부 내용 작성 영역
+                VStack(alignment: .leading) {
+                    HStack {
+
+                    Text("공부하면서 아쉬웠던 점은...")
+                        .font(.system(size: 18))
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                    
+                    // 글자 수 제한 표시
+                        Spacer()
+                        Text("\(explain2.count) / \(maxTextLength)")
+                            .font(.system(size: 14))
+                            .foregroundColor(.gray)
+                    }
+
+                    ZStack(alignment: .topLeading) {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                            .frame(height: 160)
+
+                        TextEditor(text: $explain2)
+                            .onChange(of: explain2) { newValue in
+                                if newValue.count > maxTextLength {
+                                    explain2 = String(newValue.prefix(maxTextLength))
+                                }
+                            }
+                            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 10))
+                            .font(.system(size: 15, weight: .regular))
+                            .lineSpacing(12) // 160%보다 작게
+//                            .lineSpacing(24) // 15px * 160% = 24px
+                            .foregroundColor(.black)
+                            .background(Color.clear)
+                    }
+                }
+                .padding(.horizontal, 25)
+                .padding(.bottom, 390)
+
 
                 // 다음으로 버튼
                 NavigationLink(destination: DiaryCreateView2()) {
