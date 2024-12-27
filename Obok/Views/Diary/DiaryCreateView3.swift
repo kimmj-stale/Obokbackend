@@ -12,6 +12,7 @@ struct DiaryCreateView3: View {
     @State private var currentPage = 3
     private let totalPages = 5
     @State private var explain: String = ""
+    private let maxTextLength = 150 // 글자 수 제한
 
     var body: some View {
         ZStack {
@@ -60,10 +61,19 @@ struct DiaryCreateView3: View {
 
                 // 공부 내용 작성 영역
                 VStack(alignment: .leading) {
+                    HStack {
+
                     Text("공부한 내용 중 기억에 남는 내용은...")
                         .font(.system(size: 15))
                         .fontWeight(.bold)
                         .foregroundColor(.black)
+                    
+                    // 글자 수 제한 표시
+                        Spacer()
+                        Text("\(explain.count) / \(maxTextLength)")
+                            .font(.system(size: 14))
+                            .foregroundColor(.gray)
+                    }
 
                     ZStack(alignment: .topLeading) {
                         RoundedRectangle(cornerRadius: 10)
@@ -72,6 +82,11 @@ struct DiaryCreateView3: View {
                             .frame(height: 160)
 
                         TextEditor(text: $explain)
+                            .onChange(of: explain) { newValue in
+                                if newValue.count > maxTextLength {
+                                    explain = String(newValue.prefix(maxTextLength))
+                                }
+                            }
                             .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 10))
                             .font(.system(size: 15, weight: .regular))
                             .lineSpacing(12) // 160%보다 작게
