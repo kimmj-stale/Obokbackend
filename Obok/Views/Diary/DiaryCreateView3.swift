@@ -64,7 +64,7 @@ struct DiaryCreateView3: View {
                     HStack {
 
                     Text("공부한 내용 중 기억에 남는 내용은...")
-                        .font(.system(size: 15))
+                        .font(.system(size: 18))
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                     
@@ -90,6 +90,7 @@ struct DiaryCreateView3: View {
                             .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 10))
                             .font(.system(size: 15, weight: .regular))
                             .lineSpacing(12) // 160%보다 작게
+//                            .lineSpacing(24) // 15px * 160% = 24px
                             .foregroundColor(.black)
                             .background(Color.clear)
                     }
