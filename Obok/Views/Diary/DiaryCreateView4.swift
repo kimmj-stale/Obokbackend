@@ -1,15 +1,15 @@
 //
-//  DiaryCreateView3.swift
+//  DiaryCreateView4.swift
 //  Obok
 //
-//  Created by 김민경 on 12/26/24.
+//  Created by 김민경 on 12/27/24.
 //
 
 import SwiftUI
 
-struct DiaryCreateView3: View {
+struct DiaryCreateView4: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var currentPage = 3
+    @State private var currentPage = 4
     private let totalPages = 5
     @State private var explain: String = ""
     private let maxTextLength = 150 // 글자 수 제한
@@ -58,48 +58,10 @@ struct DiaryCreateView3: View {
                 .padding(.top, 11)
 
                 Spacer().frame(height: 40)
-
-                // 공부 내용 작성 영역
-                VStack(alignment: .leading) {
-                    HStack {
-
-                    Text("공부한 내용 중 기억에 남는 내용은...")
-                        .font(.system(size: 18))
-                        .fontWeight(.bold)
-                        .foregroundColor(.black)
-                    
-                    // 글자 수 제한 표시
-                        Spacer()
-                        Text("\(explain.count) / \(maxTextLength)")
-                            .font(.system(size: 14))
-                            .foregroundColor(.gray)
-                    }
-
-                    ZStack(alignment: .topLeading) {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray.opacity(0.5), lineWidth: 1)
-                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
-                            .frame(height: 160)
-
-                        TextEditor(text: $explain)
-                            .onChange(of: explain) { newValue in
-                                if newValue.count > maxTextLength {
-                                    explain = String(newValue.prefix(maxTextLength))
-                                }
-                            }
-                            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 10))
-                            .font(.system(size: 15, weight: .regular))
-                            .lineSpacing(12) // 160%보다 작게
-//                            .lineSpacing(24) // 15px * 160% = 24px
-                            .foregroundColor(.black)
-                            .background(Color.clear)
-                    }
-                }
-                .padding(.horizontal, 25)
-                .padding(.bottom, 390)
+                
 
                 // 다음으로 버튼
-                NavigationLink(destination: DiaryCreateView4()) {
+                NavigationLink(destination: DiaryCreateView2()) {
                     Text("다음으로")
                         .font(.system(size: 15))
                         .fontWeight(.bold)
@@ -116,7 +78,7 @@ struct DiaryCreateView3: View {
     }
 }
 
-struct DiaryCreateView3_Previews: PreviewProvider {
+struct DiaryCreateView4_Previews: PreviewProvider {
     static var previews: some View {
         DiaryCreateView3()
     }
