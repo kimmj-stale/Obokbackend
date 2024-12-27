@@ -164,7 +164,7 @@ struct DiaryCreateView4: View {
                 }
 
                 // 다음으로 버튼
-                NavigationLink(destination: DiaryCreateView3()) {
+                NavigationLink(destination: DiaryCreateView5()) {
                     Text("다음으로")
                         .font(.system(size: 15))
                         .fontWeight(.bold)
