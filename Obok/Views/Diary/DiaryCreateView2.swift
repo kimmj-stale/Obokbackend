@@ -26,7 +26,6 @@ struct DiaryCreateView2: View {
         ("즐거웠어요", "Good")
     ] // 기분 목록
 
-
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {

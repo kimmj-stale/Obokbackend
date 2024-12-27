@@ -13,7 +13,18 @@ struct DiaryCreateView4: View {
     private let totalPages = 5
     @State private var explain2: String = ""
     private let maxTextLength = 150 // 글자 수 제한
+    @State private var selectedTags: [String] = [] // 선택된 태그를 저장 (복수 선택)
+    @State private var selectedFeeling: String? = nil // 선택된 기분을 저장
 
+    let dissTags = ["#해당없음", "#수면부족", "#미루는습관", "#집중력부족", "#체력부족", "#스트레스", "#무기력", "#개념부족", " #이해안됨", "#응용력부족", "#암기어려움", "#풀이어려움", "#소음", "#공부공간부족", "#휴대폰", "#인터넷게임", "#인간관계", "#부담감"] // 태그 목록
+    
+    // 태그 열
+        private let gridColumns = [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ]
+    
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -93,14 +104,57 @@ struct DiaryCreateView4: View {
 //                            .lineSpacing(24) // 15px * 160% = 24px
                             .foregroundColor(.black)
                             .background(Color.clear)
+                            .frame(maxWidth: .infinity, maxHeight: 140) // 텍스트 크기 제한
+                            .clipped() // 텍스트가 박스 밖으로 넘어가지 않도록 자르기
                     }
                 }
                 .padding(.horizontal, 25)
-                .padding(.bottom, 390)
+                .padding(.bottom, 40)
 
+                // 태그 선택 영역
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("이런 이유 때문에 아쉬웠어요.")
+                            .font(.system(size: 16))
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Text("복수선택")
+                            .font(.system(size: 13))
+                            .foregroundColor(.gray)
+                    }
+                    .padding(.horizontal, 25)
+                    .padding(.bottom, 8)
+                    
+                    // 모든 태그 버튼 표시
+                    LazyVGrid(columns: gridColumns, spacing: 12) {
+                        ForEach(dissTags, id: \.self) { tag in
+                            Button(action: {
+                                if selectedTags.contains(tag) {
+                                    selectedTags.removeAll { $0 == tag } // 선택 해제
+                                } else {
+                                    selectedTags.append(tag) // 새로 선택
+                                }
+                            }) {
+                                Text(tag)
+                                    .font(.system(size: 14))
+                                    .foregroundColor(.black)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 12)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(selectedTags.contains(tag) ? CustomColor.colors.first! : Color.gray.opacity(0.2))
+
+                                    )
+                            }
+                        }
+                    }
+                    .padding(.horizontal, 25)
+                    .padding(.bottom, 40)
+                }
 
                 // 다음으로 버튼
-                NavigationLink(destination: DiaryCreateView2()) {
+                NavigationLink(destination: DiaryCreateView3()) {
                     Text("다음으로")
                         .font(.system(size: 15))
                         .fontWeight(.bold)
@@ -119,6 +173,6 @@ struct DiaryCreateView4: View {
 
 struct DiaryCreateView4_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryCreateView3()
+        DiaryCreateView4()
     }
 }
