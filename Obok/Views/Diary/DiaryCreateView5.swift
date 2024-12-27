@@ -140,7 +140,7 @@ struct DiaryCreateView5: View {
                 }
 
                 // 등록하기 버튼
-                NavigationLink(destination: DiaryCreateView3()) {
+                NavigationLink(destination: DiaryCreateFinish()) {
                     Text("등록하기")
                         .font(.system(size: 15))
                         .fontWeight(.bold)
