@@ -2,6 +2,6 @@
 //  DiaryEditView.swift
 //  Obok
 //
-//  Created by 김민경 on 11/23/24.
+//  Created by 김민경 on 12/27/24.
 //
 

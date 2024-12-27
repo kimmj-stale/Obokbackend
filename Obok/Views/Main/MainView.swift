@@ -72,7 +72,9 @@ struct MainView: View {
         .onAppear {
             loadTodayDiaries()
         }
+        .navigationBarHidden(true)
     }
+
 
     // 오늘 일기 데이터를 불러오는 메서드
     func loadTodayDiaries() {
@@ -101,5 +103,11 @@ struct MainView: View {
             )
             todayDiaries.append(diary)
         }
+    }
+}
+
+struct MainView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainView()
     }
 }
