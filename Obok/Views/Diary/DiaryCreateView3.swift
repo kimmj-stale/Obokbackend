@@ -13,7 +13,6 @@ struct DiaryCreateView3: View {
     private let totalPages = 5
     @State private var explain: String = ""
 
-    
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -60,24 +59,29 @@ struct DiaryCreateView3: View {
                 Spacer().frame(height: 40)
 
                 // 공부 내용 작성 영역
-                VStack {
+                VStack(alignment: .leading) {
                     Text("공부한 내용 중 기억에 남는 내용은...")
                         .font(.system(size: 15))
                         .fontWeight(.bold)
                         .foregroundColor(.black)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
-                        .frame(width: UIScreen.main.bounds.width-50, height: 100)
-                        .overlay(
-                            TextField("", text: $explain)
-                                .multilineTextAlignment(.leading)
-                                .font(.system(size: 16))
-                        )
+
+                    ZStack(alignment: .topLeading) {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(Color.white))
+                            .frame(height: 160)
+
+                        TextEditor(text: $explain)
+                            .padding(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 10))
+                            .font(.system(size: 15, weight: .regular))
+                            .lineSpacing(12) // 160%보다 작게
+                            .foregroundColor(.black)
+                            .background(Color.clear)
+                    }
                 }
                 .padding(.horizontal, 25)
-                .padding(.bottom, 50)
-               
+                .padding(.bottom, 390)
+
                 // 다음으로 버튼
                 NavigationLink(destination: DiaryCreateView2()) {
                     Text("다음으로")
@@ -98,6 +102,6 @@ struct DiaryCreateView3: View {
 
 struct DiaryCreateView3_Previews: PreviewProvider {
     static var previews: some View {
-        DiaryCreateView2()
+        DiaryCreateView3()
     }
 }
