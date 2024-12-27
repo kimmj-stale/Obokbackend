@@ -14,7 +14,6 @@ struct DiaryCreateView4: View {
     @State private var explain2: String = ""
     private let maxTextLength = 150 // 글자 수 제한
     @State private var selectedTags: [String] = [] // 선택된 태그를 저장 (복수 선택)
-    @State private var selectedFeeling: String? = nil // 선택된 기분을 저장
 
     let dissTags = ["#해당없음", "#수면부족", "#미루는습관", "#집중력부족", "#체력부족", "#스트레스", "#무기력", "#개념부족", " #이해안됨", "#응용력부족", "#암기어려움", "#풀이어려움", "#소음", "#공부공간부족", "#휴대폰", "#인터넷게임", "#인간관계", "#부담감"] // 태그 목록
     
@@ -109,7 +108,7 @@ struct DiaryCreateView4: View {
                     }
                 }
                 .padding(.horizontal, 25)
-                .padding(.bottom, 40)
+                .padding(.bottom, 50)
 
                 // 태그 선택 영역
                 VStack(alignment: .leading) {
@@ -130,10 +129,21 @@ struct DiaryCreateView4: View {
                     LazyVGrid(columns: gridColumns, spacing: 12) {
                         ForEach(dissTags, id: \.self) { tag in
                             Button(action: {
-                                if selectedTags.contains(tag) {
-                                    selectedTags.removeAll { $0 == tag } // 선택 해제
+                                if tag == "#해당없음" {
+                                    // '해당 없음' 선택 시 다른 태그 초기화
+                                    if selectedTags.contains("#해당없음") {
+                                        selectedTags.removeAll()
+                                    } else {
+                                        selectedTags = ["#해당없음"]
+                                    }
                                 } else {
-                                    selectedTags.append(tag) // 새로 선택
+                                    // 다른 태그 선택 시 '해당없음' 제거
+                                    selectedTags.removeAll { $0 == "#해당없음" }
+                                    if selectedTags.contains(tag) {
+                                        selectedTags.removeAll { $0 == tag }
+                                    } else {
+                                        selectedTags.append(tag)
+                                    }
                                 }
                             }) {
                                 Text(tag)
