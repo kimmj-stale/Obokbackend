@@ -44,16 +44,47 @@ struct SettingsView: View {
                         .labelsHidden()
                 }
                 Text("매일 저녁 21시, 23시에 상담바 알림을 받아요")
-                    .font(.subheadline)
+                    .font(.system(size: 12))
                     .foregroundColor(.red)
                     .padding(.leading, 30)
             }
             .padding()
+            
+            // 과목 관리 섹션
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Image("setting")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+
+                    Text("과목 관리")
+                        .font(.system(size: 15))
+                    Spacer()
+                    Button(action: {
+                        print("과목 관리 버튼 클릭")
+                    }) {
+                        Image("go")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 20, height: 20)
+                        }
+                    }
+                    Text("• 국어, 영어, 수학, 역사, 과학, 기술가정, 정보, 자격증")
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                        .padding(.leading, 30)
+                    Text("• 숨긴 과목 1개")
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                        .padding(.leading, 30)
+                }
+                .padding()
+                }
+            .padding()
+            .background(Color.white)
         }
-        .padding()
-        .background(Color.white)
     }
-}
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
