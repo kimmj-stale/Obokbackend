@@ -36,7 +36,7 @@ struct SettingsView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
-
+                    
                     Text("알림")
                         .font(.system(size: 15))
                     Spacer()
@@ -57,7 +57,7 @@ struct SettingsView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)
-
+                    
                     Text("과목 관리")
                         .font(.system(size: 15))
                     Spacer()
@@ -68,23 +68,100 @@ struct SettingsView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
+                    }
+                }
+                Text("• 국어, 영어, 수학, 역사, 과학, 기술가정, 정보, 자격증")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+                    .padding(.leading, 30)
+                Text("• 숨긴 과목 1개")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+                    .padding(.leading, 30)
+            }
+            .padding()
+            
+            // 로그인 정보
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Image("person")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 20, height: 20)
+                    
+                    Text("로그인 정보")
+                        .font(.headline)
+                    Spacer()
+
+                    Button(action: {
+                        print("회원탈퇴 버튼 클릭")
+                    }) {
+                        Text("회원탈퇴")
+                            .font(.system(size: 12))
+                            .fontWeight(.semibold)
+                            .foregroundColor(.gray)
+                    }
+                }
+                HStack {
+                    Image("google")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack{
+                            Text("email@google.com")
+                                .font(.system(size: 12))
+                                .foregroundColor(.red)
+
+                            Spacer()
+                            
+                            Button(action: {
+                                print("로그아웃 버튼 클릭")
+                            }) {
+                                Text("로그아웃")
+                                    .font(.system(size: 12))
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
-                    Text("• 국어, 영어, 수학, 역사, 과학, 기술가정, 정보, 자격증")
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
-                        .padding(.leading, 30)
-                    Text("• 숨긴 과목 1개")
-                        .font(.system(size: 12))
-                        .foregroundColor(.gray)
-                        .padding(.leading, 30)
+                    
+                    Spacer()
                 }
                 .padding()
-                }
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 1)
+                        .fill(Color.gray.opacity(0.05))
+                        .background(Color(hex2: "FBFBFB"))
+                )
+            }
             .padding()
-            .background(Color.white)
+            
+            Spacer()
         }
+        .padding()
+        .background(Color.white)
     }
+}
+
+// Color 확장 함수
+extension Color {
+    init(hex2: String) {
+        let scanner = Scanner(string: hex2)
+        scanner.currentIndex = hex2.startIndex
+        
+        var rgb: UInt64 = 0
+        scanner.scanHexInt64(&rgb)
+        
+        let red = Double((rgb >> 16) & 0xFF) / 255.0
+        let green = Double((rgb >> 8) & 0xFF) / 255.0
+        let blue = Double(rgb & 0xFF) / 255.0
+        
+        self.init(red: red, green: green, blue: blue)
+    }
+}
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
