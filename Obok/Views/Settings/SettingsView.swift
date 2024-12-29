@@ -102,6 +102,7 @@ struct SettingsView: View {
                             .foregroundColor(.gray)
                     }
                 }
+                
                 HStack {
                     Image("google")
                         .resizable()
@@ -126,7 +127,6 @@ struct SettingsView: View {
                             }
                         }
                     }
-                    
                     Spacer()
                 }
                 .padding()
@@ -136,6 +136,52 @@ struct SettingsView: View {
                         .fill(Color.gray.opacity(0.05))
                         .background(Color(hex2: "FBFBFB"))
                 )
+//                .padding(.bottom, 20)
+                Spacer()
+
+                // 공지사항
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Image("notice")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                        
+                        Text("공지사항")
+                            .font(.system(size: 15))
+                        Spacer()
+                    }
+                }
+                
+                // 고객센터
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Image("info")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                        
+                        Text("고객센터/운영정책")
+                            .font(.system(size: 15))
+                        Spacer()
+                    }
+                }
+                
+                // 튜토리얼
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Image("info")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
+                        
+                        Text("튜토리얼 다시보기")
+                            .font(.system(size: 15))
+                        Spacer()
+                    }
+                }
+                Spacer()
+
             }
             .padding()
             
