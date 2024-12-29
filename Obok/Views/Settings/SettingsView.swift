@@ -62,14 +62,14 @@ struct SettingsView: View {
                     Text("과목 관리")
                         .font(.system(size: 15))
                     Spacer()
-                    Button(action: {
-                        print("과목 관리 버튼 클릭")
-                    }) {
+                    
+                    NavigationLink(destination: SubManagementView()) {
                         Image("go")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 20, height: 20)
                     }
+                    
                 }
                 Text("• 국어, 영어, 수학, 역사, 과학, 기술가정, 정보, 자격증")
                     .font(.system(size: 12))
@@ -137,7 +137,6 @@ struct SettingsView: View {
                         .fill(Color.gray.opacity(0.05))
                         .background(Color(hex2: "FBFBFB"))
                 )
-//                .padding(.bottom, 20)
                 Spacer()
 
                 // 공지사항
@@ -212,6 +211,8 @@ extension Color {
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        NavigationView {
+            SettingsView()
+        }
     }
 }
