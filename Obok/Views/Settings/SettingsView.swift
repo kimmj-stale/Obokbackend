@@ -42,6 +42,7 @@ struct SettingsView: View {
                     Spacer()
                     Toggle("", isOn: $isNotificationOn)
                         .labelsHidden()
+                        .tint(Color(hex2: "FA6F6F"))
                 }
                 Text("매일 저녁 21시, 23시에 상담바 알림을 받아요")
                     .font(.system(size: 12))
