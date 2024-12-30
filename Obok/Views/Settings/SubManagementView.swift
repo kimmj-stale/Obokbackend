@@ -21,6 +21,7 @@ struct SubManagementView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
+                        .padding()
                 }
                 Text("과목 관리")
                     .font(.system(size: 16))
@@ -33,12 +34,48 @@ struct SubManagementView: View {
                 .font(.system(size: 18))
                 .fontWeight(.semibold)
                 .padding(.leading, -5)
+            
+            Divider()
+            
+            // 과목 보이기
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Text("과목 보이기")
+                        .font(.system(size: 15))
+                        .fontWeight(.semibold)
+                    Spacer()
+                    
+                    Text("3개")
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                }
+                .padding(.horizontal)
+                
+                // 과목 리스트
+                ForEach(["국어", "수학", "영어"], id: \.self) { subject in
+                    HStack {
+                        Circle()
+                            .fill(Color.gray.opacity(0.5))
+                            .frame(width: 10, height: 10)
+                        
+                        Text(subject)
+                            .font(.system(size: 14))
+                            .foregroundColor(.black)
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                }
+            }
+            .padding()
+            
+            Divider()
+                .padding(.horizontal)
+            
+            Spacer()
         }
-        .padding()
-        .background(Color.white)
+        .background(Color.white.edgesIgnoringSafeArea(.all))
     }
 }
-
 
 struct SubManagementView_Previews: PreviewProvider {
     static var previews: some View {
