@@ -9,10 +9,20 @@ import SwiftUI
 
 struct SubManagementView: View {
     @Environment(\.presentationMode) var presentationMode
-    @State private var isNotificationOn: Bool = false
-    
+
+    // 과목 선택 상태 관리
+    @State private var visibleSubjects: [String: Bool] = [
+        "국어": false,
+        "수학": false,
+        "영어": false
+    ]
+    @State private var hiddenSubjects: [String: Bool] = [
+        "숨긴 과목": false
+    ]
+
     var body: some View {
         VStack(spacing: 20) {
+            // 상단 헤더
             HStack {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss() // 이전 화면으로 돌아가기
@@ -29,33 +39,34 @@ struct SubManagementView: View {
                     .padding(.leading)
                 Spacer()
             }
-            
+
+            // 설명 텍스트
             Text("과목을 숨기거나 다시 보이게 할 수 있어요.\n숨긴 과목은 메인과 모아보기에서 보이지 않아요.")
-                .font(.system(size: 18))
-                .fontWeight(.semibold)
-                .padding(.leading, -5)
-                        
-            // 과목 보이기
+                .font(.system(size: 14))
+                .fontWeight(.regular)
+                .multilineTextAlignment(.leading)
+                .padding(.horizontal)
+
+            // 과목 보이기 섹션
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("과목 보이기")
                         .font(.system(size: 15))
                         .fontWeight(.semibold)
                     Spacer()
-                    
-                    Text("3개")
+                    Text("\(visibleSubjects.filter { $0.value }.count)개")
                         .font(.system(size: 12))
                         .foregroundColor(.gray)
                 }
                 .padding(.horizontal)
-                
+
                 // 과목 리스트
-                ForEach(["국어", "수학", "영어"], id: \.self) { subject in
+                ForEach(visibleSubjects.keys.sorted(), id: \.self) { subject in
                     HStack {
-                        Circle()
-                            .fill(Color.gray.opacity(0.5))
-                            .frame(width: 10, height: 10)
-                        
+                        Checkbox(isChecked: Binding(
+                            get: { visibleSubjects[subject, default: false] },
+                            set: { visibleSubjects[subject] = $0 }
+                        ))
                         Text(subject)
                             .font(.system(size: 14))
                             .foregroundColor(.black)
@@ -65,42 +76,42 @@ struct SubManagementView: View {
                 }
             }
             .padding()
-            
+
             Divider()
                 .padding(.horizontal)
-            
-            // 과목 숨기기
+
+            // 과목 숨기기 섹션
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Text("과목 숨기기")
                         .font(.system(size: 15))
                         .fontWeight(.semibold)
                     Spacer()
-                    
-                    Text("1개")
-                        .font(.system(size: 12))
+                    Text("\(hiddenSubjects.filter { $0.value }.count)개")
+                        .font(.system(size: 14))
                         .foregroundColor(.gray)
                 }
                 .padding(.horizontal)
-                
+
                 // 숨긴 과목 리스트
-                HStack {
-                    Circle()
-                        .fill(Color.gray.opacity(0.5))
-                        .frame(width: 10, height: 10)
-                    
-                    Text("숨긴 과목")
-                        .font(.system(size: 14))
-                        .foregroundColor(.black)
-                    
-                    Spacer()
+                ForEach(hiddenSubjects.keys.sorted(), id: \.self) { subject in
+                    HStack {
+                        Checkbox(isChecked: Binding(
+                            get: { hiddenSubjects[subject, default: false] },
+                            set: { hiddenSubjects[subject] = $0 }
+                        ))
+                        Text(subject)
+                            .font(.system(size: 14))
+                            .foregroundColor(.black)
+                        Spacer()
+                    }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
             .padding()
 
             Spacer()
-            
+
             // 변경하기 버튼
             NavigationLink(destination: SettingsView()) {
                 Text("변경하기")
@@ -115,6 +126,23 @@ struct SubManagementView: View {
             }
         }
         .background(Color.white.edgesIgnoringSafeArea(.all))
+    }
+}
+
+// Checkbox
+struct Checkbox: View {
+    @Binding var isChecked: Bool
+
+    var body: some View {
+        Button(action: {
+            isChecked.toggle()
+        }) {
+            Circle()
+                .strokeBorder(Color.gray)
+                .background(isChecked ? Circle().fill(Color.gray) : nil)
+                .frame(width: 16, height: 16)
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
