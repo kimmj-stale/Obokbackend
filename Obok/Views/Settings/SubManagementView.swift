@@ -100,6 +100,19 @@ struct SubManagementView: View {
             .padding()
 
             Spacer()
+            
+            // 변경하기 버튼
+            NavigationLink(destination: SettingsView()) {
+                Text("변경하기")
+                    .font(.system(size: 15))
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, minHeight: 48)
+                    .background(Color.black)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 25)
+                    .padding(.bottom, 20)
+            }
         }
         .background(Color.white.edgesIgnoringSafeArea(.all))
     }
