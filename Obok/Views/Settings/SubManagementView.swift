@@ -34,9 +34,7 @@ struct SubManagementView: View {
                 .font(.system(size: 18))
                 .fontWeight(.semibold)
                 .padding(.leading, -5)
-            
-            Divider()
-            
+                        
             // 과목 보이기
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
@@ -71,6 +69,36 @@ struct SubManagementView: View {
             Divider()
                 .padding(.horizontal)
             
+            // 과목 숨기기
+            VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Text("과목 숨기기")
+                        .font(.system(size: 15))
+                        .fontWeight(.semibold)
+                    Spacer()
+                    
+                    Text("1개")
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                }
+                .padding(.horizontal)
+                
+                // 숨긴 과목 리스트
+                HStack {
+                    Circle()
+                        .fill(Color.gray.opacity(0.5))
+                        .frame(width: 10, height: 10)
+                    
+                    Text("숨긴 과목")
+                        .font(.system(size: 14))
+                        .foregroundColor(.black)
+                    
+                    Spacer()
+                }
+                .padding(.horizontal)
+            }
+            .padding()
+
             Spacer()
         }
         .background(Color.white.edgesIgnoringSafeArea(.all))
