@@ -19,6 +19,8 @@ struct SubManagementView: View {
     @State private var hiddenSubjects: [String: Bool] = [
         "숨긴 과목": false
     ]
+    
+    @State private var isEditing: Bool = false // 편집 활성화 상태
 
     var body: some View {
         VStack(spacing: 20) {
@@ -63,10 +65,13 @@ struct SubManagementView: View {
                 // 과목 리스트
                 ForEach(visibleSubjects.keys.sorted(), id: \.self) { subject in
                     HStack {
-                        Checkbox(isChecked: Binding(
-                            get: { visibleSubjects[subject, default: false] },
-                            set: { visibleSubjects[subject] = $0 }
-                        ))
+                        if isEditing {
+                            Checkbox(isChecked: Binding(
+                                get: { visibleSubjects[subject, default: false] },
+                                set: { visibleSubjects[subject] = $0 }
+                            ))
+                        }
+                        
                         Text(subject)
                             .font(.system(size: 14))
                             .foregroundColor(.black)
@@ -76,6 +81,7 @@ struct SubManagementView: View {
                 }
             }
             .padding()
+
 
             Divider()
                 .padding(.horizontal)
@@ -96,10 +102,13 @@ struct SubManagementView: View {
                 // 숨긴 과목 리스트
                 ForEach(hiddenSubjects.keys.sorted(), id: \.self) { subject in
                     HStack {
-                        Checkbox(isChecked: Binding(
-                            get: { hiddenSubjects[subject, default: false] },
-                            set: { hiddenSubjects[subject] = $0 }
-                        ))
+                        if isEditing {
+                            Checkbox(isChecked: Binding(
+                                get: { hiddenSubjects[subject, default: false] },
+                                set: { hiddenSubjects[subject] = $0 }
+                            ))
+                        }
+                        
                         Text(subject)
                             .font(.system(size: 14))
                             .foregroundColor(.black)
