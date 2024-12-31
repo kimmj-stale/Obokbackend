@@ -14,7 +14,7 @@ struct CalendarView: View {
     @State private var showSettings: Bool = false // 설정 화면 표시 여부
 
     var body: some View {
-        NavigationView { // NavigationView로 감싸기
+        NavigationView {
             VStack(spacing: 16) {
                 // 상단 설정, 통계, 모아보기 버튼
                 HStack {
@@ -27,7 +27,9 @@ struct CalendarView: View {
                             .frame(width: 24, height: 24)
                     }
                     .fullScreenCover(isPresented: $showSettings) {
-                        SettingsView() // 화면 꽉 채우기
+                                            NavigationView { // 내부에 NavigationView 추가
+                                                SettingsView()
+                                            }
                                         }
                     Spacer()
 

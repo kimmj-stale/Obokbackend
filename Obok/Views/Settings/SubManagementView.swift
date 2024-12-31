@@ -171,6 +171,7 @@ struct SubManagementView: View {
             }
         }
         .background(Color.white.edgesIgnoringSafeArea(.all))
+        .navigationBarHidden(true)
     }
 }
 
