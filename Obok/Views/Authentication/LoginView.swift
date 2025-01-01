@@ -2,7 +2,7 @@
 //  LoginView.swift
 //  Obok
 //
-//  Created by 김민경 on 11/28/24.
+//  Created by 김민경 on 12/28/24.
 //
 
 import SwiftUI
