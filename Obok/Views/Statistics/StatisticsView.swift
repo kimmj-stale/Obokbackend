@@ -49,8 +49,46 @@ struct StatisticsView: View {
                         .fontWeight(.bold)
                 }
                 .padding([.top, .horizontal], 24)
+                
+                Divider()
+                
+                ScrollView {
+                    HStack{
+                        // n번의 기록
+                        Text("오복과 함께한 n월")
+                            .font(.system(size: 18))
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding()
+                    
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.white)
+                            .stroke(Color.gray, lineWidth: 1)
+                            .frame(height: 70)
+                            .offset(y: 23) // 이미지 아래로 배치
+                        
+                        Image("writeNum")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 200)
+                            .offset(y: -31)
+                        
+                        Text("n번의 기록에서")
+                            .font(.system(size: 28))
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .offset(y: 22)
+                    }
+                }
+                .padding(.horizontal, 24)
             }
+            
+            Spacer()
         }
+        .background(Color.white.edgesIgnoringSafeArea(.all))
         .navigationBarHidden(true)
     }
 }
