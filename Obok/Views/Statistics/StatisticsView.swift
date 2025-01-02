@@ -54,7 +54,6 @@ struct StatisticsView: View {
                 
                 ScrollView {
                     HStack{
-                        // n번의 기록
                         Text("오복과 함께한 n월")
                             .font(.system(size: 18))
                             .fontWeight(.bold)
@@ -63,6 +62,7 @@ struct StatisticsView: View {
                     }
                     .padding()
                     
+                    // n번의 기록
                     ZStack{
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.white)
@@ -82,8 +82,75 @@ struct StatisticsView: View {
                             .foregroundColor(.black)
                             .offset(y: 22)
                     }
+                    .padding(.horizontal, 24)
+
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(height: 4)
+                        .padding(.top, -40)
+                    
+                    // 과목 개수 순위
+                    HStack{
+                        Image("mostStudy")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 170)
+                        VStack{
+                            VStack{
+                                Text("가장 자주 공부한 과목")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.black)
+                                    .padding(.bottom, -10)
+                                
+                                HStack{
+                                    Text("국어")
+                                        .font(.system(size: 40))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.black)
+                                    
+                                    Text("# n회")
+                                        .font(.system(size: 20))
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.black)
+                                        .padding(.top, 20)
+                                        .padding(.leading, 20)
+                                }
+                            }
+                        }
+                    }
+                    .padding(.bottom, 10)
+                    .padding(.top, -20)
+                    
+                    Text("공부 방해 요인")
+                        .font(.system(size: 18))
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 24)
+                    
+                    HStack{
+                        Text("#키워드")
+                            .font(.system(size: 18))
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                            .padding(.leading, 24)
+                            .padding(.top, -3)
+                        
+                        Text("가 가장 많았어요")
+                            .font(.system(size: 18))
+                            .fontWeight(.bold)
+                            .foregroundColor(.black)
+                            .padding(.top, -3)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Rectangle()
+                        .fill(Color.gray)
+                        .frame(height: 4)
+                        .padding(.top, 5)
                 }
-                .padding(.horizontal, 24)
+                
             }
             
             Spacer()
