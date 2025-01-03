@@ -18,7 +18,7 @@ struct DiaryCreateView: View {
     @State private var pageText: String = ""
     @State private var isShowingAlert = false
 
-    let maxSubjects = 15
+    let maxSubjects = 1
 
     var body: some View {
         ZStack {
@@ -114,6 +114,7 @@ struct DiaryCreateView: View {
                         }
                         .padding(8)
                         .background(
+                            
                             RoundedRectangle(cornerRadius: 20)
                                 .stroke(color, lineWidth: 2)
                         )
@@ -134,21 +135,19 @@ struct DiaryCreateView: View {
                             .background(RoundedRectangle(cornerRadius: 20)
                                 .stroke(Color.gray))
                         }
-                    } else {
-                        Text("더 이상 과목을 추가할 수 없습니다. 과목 숨기기로 필요 없는 과목을 숨겨주세요.")
-                            .font(.system(size: 14))
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil) // 줄임표 방지
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.red.opacity(0.1))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 25)
                     }
                 }
                 .padding(.horizontal, 25)
                 .padding(.bottom, 30)
+                
+                // 과목 추가 불가 메시지
+                if subjects.count >= maxSubjects {
+                    Text("* 과목 보이기는 최대 10개까지 가능해요.\n   과목 설정에서 필요 없는 과목을 숨겨주세요.")
+                        .font(.system(size: 16))
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.leading, -70)
+                        .padding(.bottom, 30)
+                }
 
                 // 페이지 입력 영역
                 HStack {
