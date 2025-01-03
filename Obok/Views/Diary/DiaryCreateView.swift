@@ -67,11 +67,30 @@ struct DiaryCreateView: View {
 
                 Spacer().frame(height: 40)
 
-                Text("저는 오늘 이 과목을 공부했어요!")
-                    .font(.system(size: 18))
-                    .fontWeight(.bold)
-                    .foregroundColor(.black)
-                    .padding(.horizontal, 25)
+                HStack{
+                    Text("저는 오늘 이 과목을 공부했어요!")
+                        .font(.system(size: 18))
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .padding(.horizontal, 25)
+                    
+                    Spacer()
+
+                    // 과목 설정
+                    NavigationLink(destination: SubManagementView()) {
+                        HStack(spacing: 5) {
+                            Text("과목 설정")
+                                .font(.system(size: 15))
+                                .foregroundColor(.black)
+                            
+                            Image("setting")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 24, height: 24)
+                        }
+                    }
+                    .padding(.trailing, 25)
+                }
 
                 // 과목 버튼 영역
                 LazyVGrid(
