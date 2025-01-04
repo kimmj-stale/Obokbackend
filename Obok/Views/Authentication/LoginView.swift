@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import KakaoSDKAuth
+import KakaoSDKUser
+import GoogleSignIn
 
 struct LoginView: View {
     var body: some View {
@@ -68,8 +71,18 @@ struct LoginView: View {
             Spacer()
         }
         .background(Color.white)
+        .alert(isPresented: $isKakaoLoginSuccessful) {
+            Alert(title: Text("카카오 로그인"), message: Text("로그인이 성공적으로 완료되었습니다."), dismissButton: .default(Text("확인")))
+        }
+        .alert(isPresented: $isGoogleLoginSuccessful) {
+            Alert(title: Text("구글 로그인"), message: Text("로그인이 성공적으로 완료되었습니다."), dismissButton: .default(Text("확인")))
+        }
     }
 }
+
+// 카카오 로그인
+
+// 구글 로그인
 
 // Color 확장 함수
 extension Color {
