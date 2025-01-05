@@ -78,11 +78,50 @@ struct LoginView: View {
             Alert(title: Text("구글 로그인"), message: Text("로그인이 성공적으로 완료되었습니다."), dismissButton: .default(Text("확인")))
         }
     }
+    
+    // 카카오 로그인
+    func kakaoLogin() {
+        if UserApi.isKakaoTalkLoginAvailable() {
+            UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+                if let error = error {
+                    print("카카오톡 로그인 실패: \(error.localizedDescription)")
+                } else {
+                    print("카카오톡 로그인 성공: \(oauthToken?.accessToken ?? "")")
+                    isKakaoLoginSuccessful = true
+                }
+            }
+        } else {
+            UserApi.shared.loginWithKakaoAccount { oauthToken, error in
+                if let error = error {
+                    print("카카오 계정 로그인 실패: \(error.localizedDescription)")
+                } else {
+                    print("카카오 계정 로그인 성공: \(oauthToken?.accessToken ?? "")")
+                    isKakaoLoginSuccessful = true
+                }
+            }
+        }
+    }
+    
+    // 구글 로그인
+    func googleLogin() {
+        guard let clientID = GIDSignIn.sharedInstance.clientID else {
+            print("Google 클라이언트 ID가 설정되지 않았습니다.")
+            return
+        }
+        
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.signIn(with: config, presenting: UIApplication.shared.windows.first!.rootViewController!) { user, error in
+            
+            if let error = error {
+                print("구글 로그인 실패: \(error.localizedDescription)")
+            } else {
+                print("구글 로그인 성공: \(user?.profile?.email ?? "이메일 없음")")
+                isGoogleLoginSuccessful = true
+            }
+        }
+    }
 }
 
-// 카카오 로그인
-
-// 구글 로그인
 
 // Color 확장 함수
 extension Color {
