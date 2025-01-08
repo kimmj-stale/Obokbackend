@@ -13,6 +13,9 @@ struct AddSubjectModal: View {
     @State private var currentWord = 0
     private let totalWord = 8
 
+    // 새 과목을 추가 callback
+    var onAddSubject: (String) -> Void
+    
     var body: some View {
         VStack {
             // 모달 상단 제목
@@ -71,7 +74,10 @@ struct AddSubjectModal: View {
 
             // 과목 추가하기 버튼
             Button(action: {
-                // 과목 추가하기 누른 후에는 추후 구현
+                // 과목 추가하기를 누르면 과목명 추가 후 모달 닫기
+                if !subjectName.isEmpty {
+                    onAddSubject(subjectName)
+                }
                 isShowingModal = false
             }) {
                 Text("과목 추가하기")
@@ -89,6 +95,6 @@ struct AddSubjectModal: View {
 
 struct AddSubjectModal_Previews: PreviewProvider {
     static var previews: some View {
-        AddSubjectModal(isShowingModal: .constant(true))
+        AddSubjectModal(isShowingModal: .constant(true), onAddSubject: { _ in })
     }
 }

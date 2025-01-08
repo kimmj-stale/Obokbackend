@@ -2,7 +2,7 @@
 //  Diary.swift
 //  Obok
 //
-//  Created by 김민경 on 11/23/ㅊ24.
+//  Created by 김민경 on 11/23/24.
 //
 
 // 일기 데이터를 정의

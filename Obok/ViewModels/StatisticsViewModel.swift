@@ -9,7 +9,7 @@
 
 import SwiftUI
 
-struct StatisticsView: View {
+struct StatisticsViewModel: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -17,8 +17,8 @@ struct StatisticsView: View {
                     .font(.largeTitle)
 
                 // 통계
-                StatisticCardView(title: "공부 시간", value: "15시간")
-                StatisticCardView(title: "가장 많이 작성한 과목", value: "수학")
+//                StatisticsView(title: "공부 시간", value: "15시간")
+//                StatisticsView(title: "가장 많이 작성한 과목", value: "수학")
             }
             .padding()
         }
@@ -26,7 +26,7 @@ struct StatisticsView: View {
 }
 
 // 통계 카드 컴포넌트
-struct StatisticCardView: View {
+struct StatisticCardViewModel: View {
     let title: String
     let value: String
 
