@@ -1,7 +1,18 @@
 # Team 내성적인 형제들
 
 # 📚 Obok 📚
-#
+## 
+❓ OUR VISION
+**중고등학생이 하루하루의 공부를 성찰할 수 있도록 학습일기를 기록하는 앱을 제공하기**
+
+공부에 흥미나 열정을 이제 가져보려는 모든 중고등학생이 스스로 학습의 의미를 발견하고, 지속 가능한 성장을 이루는 주체적인 학습자가 되는 세상을 만든다.
+###
+❓ 
+- github : https://github.com/YonseiDOIT/Obok
+- figma : https://www.figma.com/design/RerSyT9vI1v3l1H0NwE0JB/DOIT2%EA%B8%B0_%EB%82%B4%EC%84%B1%EC%A0%81%EC%9D%B8%ED%98%95%EC%A0%9C%EB%93%A4?node-id=3-2&node-type=canvas&t=1GZePXCMzblMpOZA-0
+- discord : https://discord.gg/9raY2teK
+
+
 📎 Proces
 ###
 Notion : https://www.notion.so/138102c0bbf78013a754df5ad590238f
